@@ -35,7 +35,6 @@ class InstagramsController extends AppController
         }
         $this->set('tags',$tags);
         $session=$this->Session->read('InstagramAccessToken');
-            
         $this->set('session',$session);
         //debug($session);        
         if($session){
@@ -52,17 +51,6 @@ class InstagramsController extends AppController
     function lazyload($tags = null, $min_id = null, $max_id = null)
     {
         $config = new config();
-        /*
-        $this->set('config',$config);
-        $this->set('min_id', $min_id);
-        $this->set('max_id', $max_id);
-        if (isset($tags)) {
-            $this->set('mytags', $tags);
-
-        } else {
-            $this->set('mytags', 'featured');
-        }
-        */
         if (!($tags)) {
             $tags='tech';
         }
@@ -115,6 +103,7 @@ class InstagramsController extends AppController
         //$this->redirect(array('controller'=>'instagrams','action'=>'index'));
 
     }
+
 
 }
 

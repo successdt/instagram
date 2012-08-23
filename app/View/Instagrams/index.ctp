@@ -16,10 +16,25 @@ if(!$session){
 /**
  * Nếu tồn tại rồi thì bắt đầu lấy dữ liệu
  */
-/**
- * Dùng session để lưu max ta id cho lần tiếp theo
- */
+function tag_replace($string){
+        $temp_strings=split('#',$string);
+        $result='';
+        //debug($temp_strings);
+        $i=1;
+        foreach($temp_strings as $temp_string){
+            if($i!=1){
+                $array=split(' ',$temp_string);
+                //debug($array);
+                $replace='<a class="tag_replace" href="http://localhost/instagram/instagrams/index/'.$array[0].'">#'.$array[0].'</a>';
+                $temp_string=str_replace($array[0],$replace,$temp_string);
+                //debug($temp_string);
+                $result=$result.$temp_string;
+            }
+            $i++;
 
+        }
+        return $result;
+}
 ?>
 
 
@@ -28,7 +43,7 @@ if(!$session){
        $('.thumbnail').click(function(){;        
             var id=$(this).attr('id');                
             $('#lightbox ,.preview_wrapper').show('slow');
-            $('.preview').load('http://localhost/instagram/instagrams/photo/'+id);                      
+            $('.preview').load('<?php echo $this->webroot; ?>instagrams/photo/'+id);                      
        });
        $('#lightbox').click(function(){
             $('#lightbox ,.preview_wrapper').hide('slow');
@@ -43,7 +58,7 @@ $(window).scroll(function()
     {
         $('#loading').show();
         $.ajax({
-        url: "http://localhost/instagram/instagrams/lazyload/<?php echo $tags  ?>",
+        url: "<?php echo $this->webroot; ?>instagrams/lazyload/<?php echo $tags  ?>",
         success: function(html)
         {
             if(html)
@@ -67,17 +82,7 @@ foreach($response['data'] as $data):?>
     <div class="display-block">
         <div class="thumbnail" id="<?php echo $data['id'] ?>"><?php echo $this->Html->image($data['images']['low_resolution']['url'],array('width'=>'204','height'=>'204')); ?></div><!-- /.thumbnail -->
         <div class="tags">
-            <?php
-            //Lọc lấy tags 
-            $tags=split('#',$data['caption']['text']);
-            $n=0;
-            echo $tags[0];
-            foreach($tags as $tag):
-                $nospace=split(' ',$tag);
-                if($n>0)
-                    echo $this->Html->link('#'.$tag,array('controller'=>'instagrams','action'=>'index',$nospace[0]));
-                $n++;
-            endforeach?>
+            <?php echo tag_replace($data['caption']['text']);?>
         </div><!-- /tags -->
         <div class="metadata">
             <?php echo $this->Html->image('icons/likes.png',array('alt'=>'likes')) ?>
@@ -105,8 +110,9 @@ foreach($response['data'] as $data):?>
                 </div><!-- /comment-avatar -->
                 <div class="comment-inner">
                 <?php        
-                echo $this->Html->link($comment['from']['username']." ",array('controller'=>'instagrams','action'=>'viewprofile',$comment['from']['id']));
-                echo $comment['text']; 
+                echo $this->Html->link($comment['from']['username']." ",array('controller'=>'instagrams','action'=>'viewprofile',
+                        $comment['from']['id']),array('style'=>'font-weight:bold;'));
+                echo tag_replace($comment['text']); 
                 $i++;
                 ?>
                 </div> <!-- /.comment-inner -->

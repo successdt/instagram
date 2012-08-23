@@ -34,7 +34,7 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller {
     function beforeFilter(){
         App::import('vendor','Instagram');
-        App::import('vendor','config');   
+        App::import('vendor','config');
     }
 }
 

@@ -9,7 +9,7 @@
        $('.thumbnail').click(function(){;        
             var id=$(this).attr('id');                
             $('#lightbox ,.preview_wrapper').show('slow');
-            $('.preview').load('http://localhost/instagram/instagrams/photo/'+id);                      
+            $('.preview').load('<?php echo $this->webroot; ?>instagrams/photo/'+id);                      
        });
        $('#lightbox').click(function(){
             $('#lightbox ,.preview_wrapper').hide('slow');
