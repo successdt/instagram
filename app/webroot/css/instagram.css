@@ -1,0 +1,411 @@
+@charset "utf-8";
+
+/* CSS Document */
+
+body {
+
+	font-family::"Times New Roman", Times, serif;
+
+	line-height: 1.3em;
+
+	margin: 0px 0px 0px 0px;
+
+	font-size: 14px;
+
+	color: #000;
+
+	background-color:#EDEBDE;
+
+	background-image:url(../img/background/noise.277282.png);
+
+	}
+
+a:link,a:visited {
+
+	 text-decoration:none;
+
+	 color:inherit;
+
+ }
+
+#wrapper{
+
+	background-color:transparent;
+
+	width:100%;
+
+}
+
+#sidebar{
+
+	background-image:url(../img/background/ios-linen.277282.jpg);
+
+	background-repeat:repeat;
+
+	position:fixed;
+
+	left:0px;
+
+	top:0px;
+
+	width:200px;
+
+	height:100%;
+
+	float:left;
+
+    z-index: 101;
+
+
+
+}
+
+#top-nav{
+
+	width:100%;
+
+	height:31px;
+
+	padding:5px;
+
+	margin-left:200px;
+
+	position:fixed;
+
+	top:0px;
+
+	background-image:url(../img/background/header_bg.277282.png);
+
+	background-repeat:repeat-x;
+
+    background-color: #FFF;
+
+	box-shadow:#333 5px 5px 7px;
+
+	border-bottom-left-radius:5px;
+
+	border-bottom-right-radius:5px;
+
+	float:left;
+
+    z-index: 100;
+
+
+
+}
+
+#content{
+
+	display:block;
+
+	position:relative;
+
+	width:auto;
+
+	padding:55px 0px 0px 280px ;
+
+}
+
+#lightbox{
+
+    width: 100%;
+
+    height: 100%;
+
+    z-index: 105;
+
+    background-color: #000;
+
+    opacity: 0.8;
+
+    position: fixed;
+
+    top: 0px;
+
+    left: 0px;
+
+    display: none;
+
+    
+
+    
+
+        
+
+
+
+}
+
+.preview_wrapper{
+
+    width:100%;
+
+    height: auto;
+
+    position: fixed;
+
+    top: 30px;
+
+    display: none;
+
+}
+
+.preview{
+
+    width: 960px;
+
+    height: 640px;
+
+    background-color:#FFF;
+
+    position: relative;
+
+    margin: 0 auto;
+
+    z-index: 110;
+
+    box-shadow: 0px 0px 7px #000;
+
+    overflow-x: hidden;
+
+    overflow-y: auto;
+
+    
+
+}
+
+.preview a:link, .preview a:visited{
+
+    color: #3B5998;
+
+    font-weight: bold;
+
+}
+
+.display-block{
+
+	top:0px;
+
+	width:224px;
+
+	height:auto;
+
+	min-height:200px;
+
+	margin: 14px;
+
+	float:left;
+
+	position:relative;
+
+	background-color:#FFF;
+
+	box-shadow:0px 0px 5px #666;
+
+    overflow: hidden;
+
+    -o-transition:all 1s;
+
+    -moz-transition:all 1s;
+
+    -webkit-transition:all 1s;
+
+    transition: all 1s;
+
+}
+
+.display-block a:link, .display-block a:visited{
+
+    color: #3B5998;
+
+    font-weight: bold;
+
+}
+
+.thumbnail{
+
+    margin: 10px 10px 10px 10px;
+
+    cursor: pointer;
+
+}
+
+.tags{
+
+    
+
+    margin: 0px 10px 10px 10px;
+
+    
+
+}
+
+.tags a:link, .tags a:visited{
+
+    font-weight: normal;
+
+}
+
+.metadata{
+
+    
+
+    margin: 0px 10px 10px 10px;
+
+}
+
+.comment{
+
+    margin: 5px 0px 0px 0px;
+
+    background-color: #F2F0F0;
+
+    height: auto;
+
+    overflow: auto;
+
+}
+
+.comment-inner{
+
+    
+
+    
+
+    background-color: transparent;
+
+    margin: 5px;
+
+    float: left;
+
+    width: 160px;
+
+    min-height: 30px;
+
+    overflow-x: hidden;
+
+}
+
+.comment-avatar{
+
+    background-color: transparent;
+
+    margin-left: 5px;
+
+    width: 30px;
+
+    height: 30px;
+
+    float: left;
+
+}
+
+.p_image{
+
+    width: 612px;
+
+    height: 612px;
+
+    padding: 14px;
+
+    float: left;    
+
+}
+
+.p_text{
+
+    position: relative;
+
+    padding: 14px 14px 14px 0px;
+
+    width: 280px;
+
+    float: left;
+
+    height: 67px;
+
+    overflow: auto;
+
+    border-bottom: 1px solid #EEE;
+
+}
+
+.p_text_avatar{
+
+    width: 50px;
+
+    height: 50px;
+
+    float: left;
+
+}
+
+.p_text_text{
+
+    width: 200px;
+
+    padding-left: 5px;
+
+    float: left;
+
+}
+
+.p_like{
+
+    position: relative;
+
+    padding: 14px 14px 14px 5px;
+
+    width: 280px;
+
+    float: left;
+
+    height: 80px;
+
+    overflow: auto;
+
+    border-bottom: 1px solid #EEE;
+
+}
+
+.p_comment{
+
+    position: relative;
+
+    padding: 14px 14px 14px 0px;
+
+    width: 280px;
+
+    float: left;
+
+    height: 390px;
+
+    overflow: auto;
+
+    border-bottom: 1px solid #EEE;
+
+}
+
+.p_comment .comment-inner{
+
+    width: 230px;
+
+    background-color: #EEE;
+
+    border-bottom: 1px solid #FFF;
+
+}
+#loading{
+    position: fixed;
+    top: 300px;
+    left: 0px;
+    width: 100%;
+    height: 300px;
+    display: none;
+}
+#loading-inner{
+    width: 300px;
+    height: 300px;
+    position: relative;
+    margin: 0 auto;
+}

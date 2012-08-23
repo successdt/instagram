@@ -1,0 +1,9 @@
+a:link, a:visited{
+    color: #3B5998;
+    font-weight: bold;
+}
+.p_image{
+    width: 640px;
+    height: 640px;
+    background-color: red;    
+}
