@@ -3,18 +3,12 @@
  * @author duythanh
  * @copyright 2012
  */
-//session_start();
-
+ 
 /**
  * Nếu không tồn tại SESSION access token thì phải đăng nhập
  *
  */
-/*   
-if ((!isset($_SESSION['InstagramAccessToken'])) || empty($_SESSION['InstagramAccessToken'])) {
-    $instagram = new Instagram($config->cfg);
-    $instagram->openAuthorizationUrl();
-}
-*/
+
 if(!$session){
     $instagram = new Instagram($config->cfg);
     $instagram->openAuthorizationUrl();  
@@ -22,20 +16,10 @@ if(!$session){
 /**
  * Nếu tồn tại rồi thì bắt đầu lấy dữ liệu
  */
-/*   
-$instagram = new Instagram($config->cfg);
-$instagram->setAccessToken($_SESSION['InstagramAccessToken']);
-$popular = $instagram->getRecentTags($mytags);
-$response = json_decode($popular, true);
-//debug($response);
-*/
 /**
  * Dùng session để lưu max ta id cho lần tiếp theo
  */
-/*  
-$_SESSION['next_max_tag_id']=$response['pagination']['next_max_tag_id'];
-$_SESSION['min_tag_id']=$response['pagination']['min_tag_id'];
-*/
+
 ?>
 
 

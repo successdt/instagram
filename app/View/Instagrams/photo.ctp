@@ -1,14 +1,4 @@
 
-<?php 
-/*
-session_start();
-if (isset($_SESSION['InstagramAccessToken']) && !empty($_SESSION['InstagramAccessToken'])):
-$instagram = new Instagram($config->cfg);
-$instagram->setAccessToken($_SESSION['InstagramAccessToken']);
-$response=$instagram->getMedia($id);
-$media=json_decode($response,true);
-*/
-?>
 <div class="p_image">
     <?php echo $this->Html->image($media['data']['images']['standard_resolution']['url'],array('alt'=>'image','width'=>'612','height'=>'612')) ?>
 </div><!-- /.p_image -->

@@ -3,31 +3,6 @@
  * @author duythanh
  * @copyright 2012
  */
-
-//session_start();
-
-/**
- * Nếu không tồn tại SESSION access token thì phải đăng nhập
- *
- */
-/*
-if ((!isset($_SESSION['InstagramAccessToken'])) || empty($_SESSION['InstagramAccessToken'])) {
-    $instagram = new Instagram($config->cfg);
-    $instagram->openAuthorizationUrl();
-}
-*/
-/**
- * Nếu tồn tại rồi thì bắt đầu lấy dữ liệu
- */
- /*
-$instagram = new Instagram($config->cfg);
-$instagram->setAccessToken($_SESSION['InstagramAccessToken']);
-$popular = $instagram->getRecentTags($mytags,$_SESSION['next_max_tag_id'],$_SESSION['min_tag_id']);
-$response = json_decode($popular, true);
-//debug($response);
-$_SESSION['next_max_tag_id']=$response['pagination']['next_max_tag_id'];
-$_SESSION['min_tag_id']=$response['pagination']['min_tag_id'];
-*/
 ?>
 <script type="text/javascript">
     $(document).ready(function(){
