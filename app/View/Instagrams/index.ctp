@@ -18,6 +18,12 @@ if(!$session){
  */
 
 ?>
+<!-- autolink script -->
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('#content').html($('#content').html().replace(/#([a-zA-Z1-9]{1,})/gi,'<a href="<?php echo $this->webroot ?>instagrams/index/$1" class="tag_replace">#$1</a>'));
+    });
+</script>
 <!-- ligthbox script -->
 <script type="text/javascript">
     $(document).ready(function(){
@@ -59,15 +65,7 @@ $(window).scroll(function()
 });
 </script>
 
-<!-- autolink script -->
-<script type="text/javascript">
-    function autolink(){
-        $('#content').html($('#content').html().replace(/#([a-zA-Z1-9]{1,})/gi,'<a href="<?php echo $this->webroot ?>instagrams/index/$1">#$1</a>'));  
-    }
-    $(document).ready(function() {
-      autolink();
-    });
-</script>
+
 <?php
 
 foreach($response['data'] as $data):?>

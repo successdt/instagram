@@ -1,3 +1,12 @@
+<!-- autolink script -->
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('.p_text').html($('.p_text').html().replace(/#([a-zA-Z1-9]{1,})/gi,'<a href="<?php echo $this->webroot ?>instagrams/index/$1" class="tag_replace">#$1</a>'));
+      $('.p_comment').html($('.p_comment').html().replace(/#([a-zA-Z1-9]{1,})/gi,'<a href="<?php echo $this->webroot ?>instagrams/index/$1" class="tag_replace">#$1</a>'));
+    });
+</script>
+
+
 
 <div class="p_image">
     <?php echo $this->Html->image($media['data']['images']['standard_resolution']['url'],array('alt'=>'image','width'=>'612','height'=>'612')) ?>
