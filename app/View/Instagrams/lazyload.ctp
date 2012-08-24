@@ -4,6 +4,7 @@
  * @copyright 2012
  */
 ?>
+
 <script type="text/javascript">
     $(document).ready(function(){
        $('.thumbnail').click(function(){;        
@@ -27,17 +28,7 @@ foreach($response['data'] as $data): ?>
     <div class="display-block ">
         <div class="thumbnail" id="<?php echo $data['id'] ?>"><?php echo $this->Html->image($data['images']['low_resolution']['url'],array('width'=>'204','height'=>'204')); ?></div><!-- /.thumbnail -->
         <div class="tags">
-            <?php
-            //Lọc lấy tags 
-            $tags=split('#',$data['caption']['text']);
-            $n=0;
-            echo $tags[0];
-            foreach($tags as $tag):
-                $nospace=split(' ',$tag);
-                if($n>0)
-                    echo $this->Html->link('#'.$tag,array('controller'=>'instagrams','action'=>'index',$nospace[0]));
-                $n++;
-            endforeach?>
+            <?php echo $data['caption']['text'] ?>
         </div><!-- /tags -->
         <div class="metadata">
             <?php echo $this->Html->image('icons/likes.png',array('alt'=>'likes')) ?>

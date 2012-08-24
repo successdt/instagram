@@ -16,28 +16,9 @@ if(!$session){
 /**
  * Nếu tồn tại rồi thì bắt đầu lấy dữ liệu
  */
-function tag_replace($string){
-        $temp_strings=split('#',$string);
-        $result='';
-        //debug($temp_strings);
-        $i=1;
-        foreach($temp_strings as $temp_string){
-            if($i!=1){
-                $array=split(' ',$temp_string);
-                //debug($array);
-                $replace='<a class="tag_replace" href="http://localhost/instagram/instagrams/index/'.$array[0].'">#'.$array[0].'</a>';
-                $temp_string=str_replace($array[0],$replace,$temp_string);
-                //debug($temp_string);
-                $result=$result.$temp_string;
-            }
-            $i++;
 
-        }
-        return $result;
-}
 ?>
-
-
+<!-- ligthbox script -->
 <script type="text/javascript">
     $(document).ready(function(){
        $('.thumbnail').click(function(){;        
@@ -51,6 +32,8 @@ function tag_replace($string){
        }) 
     });
 </script>
+
+<!-- lazyload script -->
 <script type="text/javascript">
 $(window).scroll(function()
 {
@@ -75,6 +58,16 @@ $(window).scroll(function()
     }
 });
 </script>
+
+<!-- autolink script -->
+<script type="text/javascript">
+    function autolink(){
+        $('#content').html($('#content').html().replace(/#([a-zA-Z1-9]{1,})/gi,'<a href="<?php echo $this->webroot ?>instagrams/index/$1">#$1</a>'));  
+    }
+    $(document).ready(function() {
+      autolink();
+    });
+</script>
 <?php
 
 foreach($response['data'] as $data):?>
@@ -82,7 +75,7 @@ foreach($response['data'] as $data):?>
     <div class="display-block">
         <div class="thumbnail" id="<?php echo $data['id'] ?>"><?php echo $this->Html->image($data['images']['low_resolution']['url'],array('width'=>'204','height'=>'204')); ?></div><!-- /.thumbnail -->
         <div class="tags">
-            <?php echo tag_replace($data['caption']['text']);?>
+            <?php echo $data['caption']['text'];?>
         </div><!-- /tags -->
         <div class="metadata">
             <?php echo $this->Html->image('icons/likes.png',array('alt'=>'likes')) ?>
@@ -112,7 +105,7 @@ foreach($response['data'] as $data):?>
                 <?php        
                 echo $this->Html->link($comment['from']['username']." ",array('controller'=>'instagrams','action'=>'viewprofile',
                         $comment['from']['id']),array('style'=>'font-weight:bold;'));
-                echo tag_replace($comment['text']); 
+                echo $comment['text']; 
                 $i++;
                 ?>
                 </div> <!-- /.comment-inner -->
