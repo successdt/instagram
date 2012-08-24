@@ -38,12 +38,12 @@ class InstagramsController extends AppController
         $this->set('session',$session);
         //debug($session);        
         if($session){
-            $instagram = new Instagram($config->cfg);
-            $instagram->setAccessToken($session);
-            $popular = $instagram->getRecentTags($tags);
-            $response = json_decode($popular, true);
-            $this->Session->write('next_max_tag_id',$response['pagination']['next_max_tag_id']);          
-            $this->set('response',$response);            
+            //$instagram = new Instagram($config->cfg);
+            //$instagram->setAccessToken($session);
+            //$popular = $instagram->getRecentTags($tags);
+            //$response = json_decode($popular, true);
+            $this->Session->write('next_max_tag_id','');          
+            //$this->set('response',$response);            
                     
         }                      
     }
