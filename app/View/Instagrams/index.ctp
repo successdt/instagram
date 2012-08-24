@@ -3,15 +3,15 @@
  * @author duythanh
  * @copyright 2012
  */
- 
+
 /**
  * Nếu không tồn tại SESSION access token thì phải đăng nhập
  *
  */
 
-if(!$session){
+if (!$session) {
     $instagram = new Instagram($config->cfg);
-    $instagram->openAuthorizationUrl();  
+    $instagram->openAuthorizationUrl();
 }
 /**
  * Nếu tồn tại rồi thì bắt đầu lấy dữ liệu
@@ -21,7 +21,8 @@ if(!$session){
 <!-- autolink script -->
 <script type="text/javascript">
     $(document).ready(function() {
-      $('#content').html($('#content').html().replace(/#([a-zA-Z1-9]{1,})/gi,'<a href="<?php echo $this->webroot ?>instagrams/index/$1" class="tag_replace">#$1</a>'));
+      $('#content').html($('#content').html().replace(/#([a-zA-Z1-9]{1,})/gi,'<a href="<?php echo
+$this->webroot ?>instagrams/index/$1" class="tag_replace">#$1</a>'));
     });
 </script>
 </script>
@@ -54,7 +55,7 @@ $(window).scroll(function()
     function lazyload(){
         $('#loading').show();
         $.ajax({
-        url: "<?php echo $this->webroot; ?>instagrams/lazyload/<?php echo $tags  ?>",
+        url: "<?php echo $this->webroot; ?>instagrams/lazyload/<?php echo $tags ?>",
         success: function(html)
         {
             if(html)
