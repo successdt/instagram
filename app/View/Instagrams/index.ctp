@@ -51,6 +51,7 @@ $(window).scroll(function()
     }
 });
 </script>
+
 <script type="text/javascript">
     function lazyload(){
         $('#loading').show();

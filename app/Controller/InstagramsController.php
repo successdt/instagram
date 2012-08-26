@@ -12,8 +12,6 @@
 
 class InstagramsController extends AppController
 {
-
-
     var $name = "Instagrams";
     var $helpers = array(
         "Html",
@@ -80,6 +78,7 @@ class InstagramsController extends AppController
             $instagram->setAccessToken($session);
             $response = $instagram->getMedia($id);
             $media = json_decode($response, true);
+            //debug($media);
             $this->set('media', $media);
         }
         $this->layout = '';
@@ -101,8 +100,37 @@ class InstagramsController extends AppController
         //$this->redirect(array('controller'=>'instagrams','action'=>'index'));
 
     }
-
-
+    function new_comment(){
+        $config = new config();
+        $session = $this->Session->read('InstagramAccessToken');
+        if ($session) {
+            $instagram = new Instagram($config->cfg);
+            $instagram->setAccessToken($session);
+            debug($_POST['id']);            
+            $response = $instagram->postMediaComment($_POST['id'],$_POST['text']);
+            $data = json_decode($response, true);
+            debug($data);
+            //$this->set('data', $data);
+        }
+        $this->layout = '';        
+    }
+    function like($like=null,$id=null){
+        $config = new config();
+        $session = $this->Session->read('InstagramAccessToken');
+        if ($session) {
+            $instagram = new Instagram($config->cfg);
+            $instagram->setAccessToken($session);
+            if($like)           
+                $instagram->postLike($id);
+            else
+                $instagram->removeLike($id);
+            $response=$instagram->getLikes($id);
+            $media = json_decode($response, true);
+            //debug($media);
+            $this->set('media', $media);
+        }
+        $this->layout = '';  
+    }
 }
 
 
