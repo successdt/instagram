@@ -25,6 +25,7 @@ if (!$session) {
 $this->webroot ?>instagrams/index/$1" class="tag_replace">#$1</a>'));
     });
 </script>
+
 </script>
 <!-- ligthbox script -->
 <script type="text/javascript">
@@ -65,8 +66,8 @@ $(window).scroll(function()
                 $('#loading').hide();
             }else
             {
-                //$('#content').html('<center>No more posts to show.</center>');
-                alert('Error while loading next page');
+                $('#content').html('<center>No more posts to show.</center>');
+                //alert('Error while loading next page');
             }
         }
         });

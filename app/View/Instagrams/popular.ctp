@@ -1,10 +1,3 @@
-<?php
-/**
- * @author duythanh
- * @copyright 2012
- */
-?>
-
 <!-- autolink script -->
 <script type="text/javascript">
     $(document).ready(function() {
@@ -27,6 +20,7 @@ $this->webroot ?>instagrams/index/$1" class="tag_replace">#$1</a>'));
        }) 
     });
 </script>
+
 
 <!-- masonry -->
 <script type="text/javascript">
@@ -98,7 +92,7 @@ $this->webroot ?>instagrams/index/$1" class="tag_replace">#$1</a>'));
     });
 </script>
 <?php
-foreach ($response['data'] as $data): ?>
+foreach ($media['data'] as $data): ?>
     <div class="display-block" id="<?php echo $data['id'] ?>" data-media-liked="<?php echo $data['user_has_liked'] ?>">
         <div class="block-like" id="like<?php echo $data['id'] ?>">
         

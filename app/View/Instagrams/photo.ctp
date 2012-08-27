@@ -36,7 +36,7 @@ $(document).ready(function(){
     $(document).ready(function(){
         <?php if($media['data']['user_has_liked']){ ?>
             $('.instagramlike').css('opacity','0.5');
-            $('.social').toggle(function(){
+            $('.instagramlike').toggle(function(){
                 $(this).css('opacity','1');
                 },function(){
                 $(this).css('opacity','0.5');
@@ -49,6 +49,7 @@ $(document).ready(function(){
                     url:"<?php echo $this->webroot ?>instagrams/like/0/"+id,
                     success:function(html){
                         $('.p_like_inner').html(html);
+                        $('#'+id).attr('data-media-liked','');
                         $('#loading').hide();
                     }
                 });
@@ -60,13 +61,14 @@ $(document).ready(function(){
                     url:"<?php echo $this->webroot ?>instagrams/like/1/"+id,
                     success:function(html){
                         $('.p_like_inner').html(html);
+                        $('#'+id).attr('data-media-liked','1');
                         $('#loading').hide();
                     }
                 });                
             });            
         <?php }else{ ?>
             $('.instagramlike').css('opacity','1');
-            $('.social').toggle(function(){
+            $('.instagramlike').toggle(function(){
                 $(this).css('opacity','0.5');
                 },function(){
                 $(this).css('opacity','1');
@@ -79,6 +81,7 @@ $(document).ready(function(){
                     url:"<?php echo $this->webroot ?>instagrams/like/1/"+id,
                     success:function(html){
                         $('.p_like_inner').html(html);
+                        $('#'+id).attr('data-media-liked','1');
                         $('#loading').hide();
                     }
                 });
@@ -90,6 +93,7 @@ $(document).ready(function(){
                     url:"<?php echo $this->webroot ?>instagrams/like/0/"+id,
                     success:function(html){
                         $('.p_like_inner').html(html);
+                        $('#'+id).attr('data-media-liked','');
                         $('#loading').hide();
                     }
                 });
@@ -119,7 +123,7 @@ echo $this->Html->link($media['data']['caption']['from']['username'], array(
     $media['data']['caption']['from']['id']));
 echo $media['data']['caption']['text'];
 ?>
-     </div>
+     </div><!-- /p_text_text -->
 </div><!--/p_text  -->
 <div class="p_close"></div><!-- /p_close -->
 <div class="p_like">
@@ -184,9 +188,15 @@ endforeach;
 ?>
 </div><!-- /.p_comment -->
 <div class="p_post">
-    <?php echo $this->Form->input('', array(
-    'id' => 'new-post',
-    'type' => 'textarea',
-    'rows' => '3')) ?>
-    <button class="white send-button">Send</button>
+
+    <div class="inline">
+        <?php echo $this->Form->input('', array(
+        'id' => 'new-post',
+        'type' => 'textarea',
+        'cols'=>'25',
+        'rows' => '3')) ?>    
+    </div>
+    <div class="inline">
+        <button class="white send-button">Send</button>
+    </div>   
 </div><!-- /p_post -->

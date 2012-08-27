@@ -31,6 +31,9 @@ class InstagramsController extends AppController
         }
         $this->set('tags', $tags);
         $session = $this->Session->read('InstagramAccessToken');
+        $userinfo=$this->Session->read('UserInfo');
+        $this->set('userinfo',$userinfo);
+        //debug($userinfo);
         $this->set('session', $session);
         //debug($session);
         if ($session) {
@@ -59,6 +62,7 @@ class InstagramsController extends AppController
             $max_id = $this->Session->read('next_max_tag_id');
             $popular = $instagram->getRecentTags($tags, $max_id);
             $response = json_decode($popular, true);
+            //debug($response);
             $this->Session->write('next_max_tag_id', $response['pagination']['next_max_tag_id']);
             $this->set('response', $response);
 
@@ -88,7 +92,10 @@ class InstagramsController extends AppController
         $config = new config();
         $instagram = new Instagram($config->cfg);
         $accessToken = $instagram->getAccessToken();
+        $response=$instagram->getUser($accessToken);
+        $userinfo=json_decode($response,true);
         $this->Session->write('InstagramAccessToken', $accessToken);
+        $this->Session->write('UserInfo',$userinfo);
         //$this->set('config',$config);
         $this->render('success');
         $this->redirect(array('controller' => 'instagrams', 'action' => 'index'));
@@ -97,7 +104,7 @@ class InstagramsController extends AppController
     {
         $this->Session->write('InstagramAccessToken', null);
         $this->Session->destroy();
-        //$this->redirect(array('controller'=>'instagrams','action'=>'index'));
+        $this->redirect(array('controller'=>'instagrams','action'=>'index'));
 
     }
     function new_comment(){
@@ -130,6 +137,84 @@ class InstagramsController extends AppController
             $this->set('media', $media);
         }
         $this->layout = '';  
+    }
+    function viewprofile($id=null){
+        $config = new config();
+        $this->set('config', $config);
+        $userinfo=$this->Session->read('UserInfo');
+        $this->set('userinfo',$userinfo);
+        if(!$id)
+            $id=$userinfo['data']['id'];
+        $instagram = new Instagram($config->cfg);
+        $session = $this->Session->read('InstagramAccessToken');
+        if($session){
+            $this->set('session', $session);
+            $instagram->setAccessToken($session);
+            $response=$instagram->getUser($id);
+            $user=json_decode($response,true);
+            $this->set('user',$user);
+            //Bắt load từ đầu
+            $this->Session->write($id.'_end',false);
+            $this->Session->write($id.'_next_max_tag_id', '');
+        }
+
+        //debug($user);
+        
+    }
+    function loaduserrecent($id=null){
+        //Nếu id được set thì bắt đầu
+        if($id){
+            $config = new config();
+            $this->layout = '';
+            $session = $this->Session->read('InstagramAccessToken');
+            $this->set('session', $session);
+            //debug($session);
+            //kiểm tra tồn tại accesstoken
+            if ($session) {
+                $end=$this->Session->read($id.'_end');
+                //Kiểm tra xem là trang cuối cùng hay chưa
+                if($end){
+                    $this->render('loaduserrecent');
+                }else{
+                    $instagram = new Instagram($config->cfg);
+                    $instagram->setAccessToken($session);
+                    $max_id = $this->Session->read($id.'_next_max_tag_id');
+                    $response = $instagram->getUserRecent($id,$max_id);
+                    $media = json_decode($response, true);
+                    //debug($media);
+                    if(isset($media['pagination']['next_max_id'])){
+                        $this->Session->write($id.'_next_max_tag_id', $media['pagination']['next_max_id']);                       
+                    }
+                    else{
+                        $this->Session->write($id.'_end',true);
+                    }
+                    $this->set('media', $media);
+                    $this->render('popular');                    
+                }
+            }            
+        }
+    }//chưa hoàn thành
+    function popular(){
+        $config = new config();
+        $this->set('config', $config);;
+        $session = $this->Session->read('InstagramAccessToken');
+        $userinfo=$this->Session->read('UserInfo');
+        $this->set('userinfo',$userinfo);
+        //debug($userinfo);
+        $this->set('session', $session);
+        //debug($session);
+        if ($session) {
+            $instagram = new Instagram($config->cfg);
+            $instagram->setAccessToken($session);
+            $popular = $instagram->getPopularMedia();
+            $media = json_decode($popular, true);
+            $this->set('media',$media);
+            //debug($media);
+
+        }
+    }
+    function follow(){
+        
     }
 }
 
