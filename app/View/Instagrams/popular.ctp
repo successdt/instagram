@@ -21,12 +21,12 @@ $this->webroot ?>instagrams/index/$1" class="tag_replace">#$1</a>'));
         $('#statfollowers').click(function(){
             var userid=$(this).attr('data-user-id');
             $('#lightbox ,.preview_wrapper').show('slow');
-            $('.preview').load('<?php echo $this->webroot; ?>instagrams/userfollows/'+userid);                      
+            $('.preview').load('<?php echo $this->webroot; ?>instagrams/userfollowedby/'+userid);                      
        });
        $('#statfollowing').click(function(){
             var userid=$(this).attr('data-user-id');
             $('#lightbox ,.preview_wrapper').show('slow');
-            $('.preview').load('<?php echo $this->webroot; ?>instagrams/userfollowedby/'+userid);                      
+            $('.preview').load('<?php echo $this->webroot; ?>instagrams/userfollows/'+userid);                      
        });    
     });
 </script>

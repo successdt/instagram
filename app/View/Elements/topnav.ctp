@@ -1,13 +1,14 @@
 <div id="left-nav">
-    <button class="start gray" id="show-hide-sidebar">show/hide</button>
-    <input type="text" class="middle" name="search" id="search" />
-    <button class="end gray">search</button>
-    <div class="searchby inline">
-        <input type="radio" name="searchby" value="tag"  checked="checked"/>Tags
-        <input type="radio" name="searchby" value="username" />Username    
-    </div>
-   
-
+    <form method="post" action="<?php echo $this->webroot?>instagrams/search">
+    <div class="start gray" id="show-hide-sidebar">show/hide</div>
+        <input type="text" class="middle" name="search" id="search" />
+        <!--<button class="end gray" id="search-button">search</button>-->
+        <input type="submit" value="search" class="end gray inline" />
+        <div class="searchby inline">
+            <input type="radio" name="searchby" value="tag"  checked="checked"/>Tags
+            <input type="radio" name="searchby" value="username" />Username    
+        </div>        
+    </form>
 </div>
 <div id="right-nav">
     <div class="inline">

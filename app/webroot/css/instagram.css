@@ -605,10 +605,11 @@ img.instagramlike{
     text-align: center;
 }
 .follow{
-    width: 190px;
-    margin: 10px 10px 5px 10px;
+    width: 205px;
+    margin:10px 10px 10px 10px;
     font-size: large;
     padding: 5px;
+    
     
 }
 .block-bio a:link, .block-bio a:visited{
@@ -639,4 +640,29 @@ img.instagramlike{
     -webkit-transition:all 1s;
     transition: all 1s;
     cursor: pointer;
+}
+.search-result{
+    background-color: #5686AC;
+    border-radius: 4px;
+    box-shadow: 0px 1px 3px black;
+    color: white;
+    cursor: pointer;
+    float: left;
+    font-size: 18px;
+    font-weight: 700;
+    margin:10px 10px 10px 10px;
+    padding-top: 4px;
+    text-align: center;
+    text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.506);
+    width: 205px;
+}
+.search-count{
+    background-color: #28618C;
+    border-radius: 0 0 4px 4px;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 5px;
+    padding: 3px 0px;
+    text-align: center;
 }

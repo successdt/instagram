@@ -272,6 +272,33 @@ class InstagramsController extends AppController
         $this->layout='';
         $this->render('loaduserfollows');
     }
+    function search(){
+        $config = new config();
+        $session = $this->Session->read('InstagramAccessToken');
+        $option=$_POST['searchby'];
+        $keyword=$_POST['search'];
+        $this->set('option',$option);
+        $this->set('session', $session);
+        $userinfo=$this->Session->read('UserInfo');
+        $this->set('userinfo',$userinfo);
+        if($option&&$keyword){
+            $instagram=new Instagram($config->cfg);
+            $instagram->setAccessToken($session);
+            if($option=='tag'){
+                $response=$instagram->searchTags($keyword);
+                $result=json_decode($response,true);
+                $this->set('media',$result);
+                //debug($result);
+            }
+            if($option=='username'){
+                $response=$instagram->searchUser($keyword);
+                $result=json_decode($response,true);
+                $this->set('user',$result);
+                //debug($result);
+            }
+            
+        }
+    }
 }
 
 
