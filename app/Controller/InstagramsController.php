@@ -104,7 +104,7 @@ class InstagramsController extends AppController
     {
         $this->Session->write('InstagramAccessToken', null);
         $this->Session->destroy();
-        $this->redirect(array('controller'=>'instagrams','action'=>'index'));
+        //$this->redirect(array('controller'=>'instagrams','action'=>'index'));
 
     }
     function new_comment(){
@@ -155,6 +155,7 @@ class InstagramsController extends AppController
             $this->set('user',$user);
             //Bắt load từ đầu
             $this->Session->write($id.'_end',false);
+            $this->Session->write($id.'next_cursor','');
             $this->Session->write($id.'_next_max_tag_id', '');
         }
 
@@ -162,37 +163,34 @@ class InstagramsController extends AppController
         
     }
     function loaduserrecent($id=null){
-        //Nếu id được set thì bắt đầu
-        if($id){
-            $config = new config();
-            $this->layout = '';
-            $session = $this->Session->read('InstagramAccessToken');
-            $this->set('session', $session);
-            //debug($session);
-            //kiểm tra tồn tại accesstoken
-            if ($session) {
-                $end=$this->Session->read($id.'_end');
-                //Kiểm tra xem là trang cuối cùng hay chưa
-                if($end){
-                    $this->render('loaduserrecent');
-                }else{
-                    $instagram = new Instagram($config->cfg);
-                    $instagram->setAccessToken($session);
-                    $max_id = $this->Session->read($id.'_next_max_tag_id');
-                    $response = $instagram->getUserRecent($id,$max_id);
-                    $media = json_decode($response, true);
-                    //debug($media);
-                    if(isset($media['pagination']['next_max_id'])){
-                        $this->Session->write($id.'_next_max_tag_id', $media['pagination']['next_max_id']);                       
-                    }
-                    else{
-                        $this->Session->write($id.'_end',true);
-                    }
-                    $this->set('media', $media);
-                    $this->render('popular');                    
+        $config = new config();
+        $this->layout = '';
+        $session = $this->Session->read('InstagramAccessToken');
+        $this->set('session', $session);
+        //debug($session);
+        //kiểm tra tồn tại accesstoken
+        if ($session&&$id) {
+            $end=$this->Session->read($id.'_end');
+            //Kiểm tra xem là trang cuối cùng hay chưa
+            if($end){
+                $this->render('loaduserrecent');
+            }else{
+                $instagram = new Instagram($config->cfg);
+                $instagram->setAccessToken($session);
+                $max_id = $this->Session->read($id.'_next_max_tag_id');
+                $response = $instagram->getUserRecent($id,$max_id);
+                $media = json_decode($response, true);
+                //debug($media);
+                if(isset($media['pagination']['next_max_id'])){
+                    $this->Session->write($id.'_next_max_tag_id', $media['pagination']['next_max_id']);                       
                 }
-            }            
-        }
+                else{
+                    $this->Session->write($id.'_end',true);
+                }
+                $this->set('media', $media);
+                $this->render('popular');                    
+            }
+        }            
     }//chưa hoàn thành
     function popular(){
         $config = new config();
@@ -213,8 +211,66 @@ class InstagramsController extends AppController
 
         }
     }
-    function follow(){
-        
+    function userfollows($id=null){
+        $config = new config();
+        $session = $this->Session->read('InstagramAccessToken');
+        if($session&&$id){
+            $this->set('id',$id);
+            $this->Session->write($id.'next_cursor','');
+        }
+        $this->layout='';           
+    }
+    function loaduserfollows($id=null){
+        $config = new config();
+        $this->set('config', $config);
+        $session = $this->Session->read('InstagramAccessToken');
+        $next_cursor=$this->Session->read($id.'next_cursor');
+        if($session&&$id&&($next_cursor!=1)){
+            $instagram=new Instagram($config->cfg);
+            $instagram->setAccessToken($session);
+            $followed=$instagram->getUserFollows($id,$next_cursor);
+            $data=json_decode($followed,true);
+            if(isset($data['pagination']['next_cursor'])){
+                $this->Session->write($id.'next_cursor',$data['pagination']['next_cursor']);
+                $this->set('data',$data);
+                //debug($data);                
+            }else{
+                $this->Session->write($id.'next_cursor','1');
+            }
+
+        }
+        $this->layout='';
+    }
+    function userfollowedby($id=null){
+        $config = new config();
+        $session = $this->Session->read('InstagramAccessToken');
+        if($session&&$id){
+            $this->set('id',$id);
+            $this->Session->write($id.'next_cursor_by','');
+        }
+        $this->layout='';           
+    }
+    function loaduserfollowedby($id=null){
+        $config = new config();
+        $this->set('config', $config);
+        $session = $this->Session->read('InstagramAccessToken');
+        $next_cursor=$this->Session->read($id.'next_cursor_by');
+        if($session&&$id&&($next_cursor!=1)){
+            $instagram=new Instagram($config->cfg);
+            $instagram->setAccessToken($session);
+            $followed=$instagram->getUserFollowedBy($id,$next_cursor);
+            $data=json_decode($followed,true);
+            if(isset($data['pagination']['next_cursor'])){
+                $this->Session->write($id.'next_cursor_by',$data['pagination']['next_cursor']);
+                $this->set('data',$data);
+                //debug($data);                
+            }else{
+                $this->Session->write($id.'next_cursor_by','1');
+            }
+
+        }
+        $this->layout='';
+        $this->render('loaduserfollows');
     }
 }
 

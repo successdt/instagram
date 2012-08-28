@@ -26,7 +26,17 @@ $this->webroot ?>instagrams/index/$1" class="tag_replace">#$1</a>'));
        $('#lightbox').click(function(){
             $('#lightbox ,.preview_wrapper').hide('slow');
             $('.preview').html('');
-       }) 
+       });
+       $('#statfollowers').click(function(){
+            var userid=$(this).attr('data-user-id');
+            $('#lightbox ,.preview_wrapper').show('slow');
+            $('.preview').load('<?php echo $this->webroot; ?>instagrams/userfollows/'+userid);                      
+       });
+       $('#statfollowing').click(function(){
+            var userid=$(this).attr('data-user-id');
+            $('#lightbox ,.preview_wrapper').show('slow');
+            $('.preview').load('<?php echo $this->webroot; ?>instagrams/userfollowedby/'+userid);                      
+       });        
     });
 </script>
 
@@ -79,15 +89,15 @@ $(window).scroll(function()
         <?php echo $user['data']['bio'] ?>
     </div><!--/block-bio  -->
     <div class="stat-wrapper">
-        <div class="stat stat-photo">
+        <div class="stat stat-photo" data-user-id="<?php echo $user['data']['id'] ?>">
             <span><?php echo $user['data']['counts']['media'] ?></span>
             <div class="stat-desc">Photos</div><!-- /stat-desc -->
         </div><!-- /stat-photo -->
-        <div class="stat stat-followers">
+        <div class="stat stat-followers" id="statfollowers" data-user-id="<?php echo $user['data']['id'] ?>">
             <span><?php echo $user['data']['counts']['followed_by'] ?></span>
             <div class="stat-desc">Followers</div>
         </div><!-- /stat-followers -->
-        <div class="stat stat-following">
+        <div class="stat stat-following" id="statfollowing" data-user-id="<?php echo $user['data']['id'] ?>">
             <span><?php echo $user['data']['counts']['follows'] ?></span>
             <div class="stat-desc">Following</div>
         </div><!-- /stat-following -->

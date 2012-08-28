@@ -19,8 +19,9 @@
         <button class="middle gray" onclick="window.location='<?php echo
             $this->webroot ?>instagrams/viewprofile/<?php if ($userinfo['data']['profile_picture'])
             echo $userinfo['data']['id'] ?>'">My photos</button>
-        <button class="end gray" onclick="window.location='<?php echo $this->
-            webroot ?>instagrams/favorites'"> My favorites</button>           
+        <button class="middle gray" onclick="window.location='<?php echo $this->
+            webroot ?>instagrams/favorites'"> My favorites</button>
+        <button class="end gray" onclick="window.location='<?php echo $this->webroot?>instagrams/logout'">Logout</button>           
     </div>
     <div id="profile-picture" class="inline" onclick="window.location='<?php echo
         $this->webroot ?>instagrams/viewprofile/<?php echo

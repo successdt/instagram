@@ -17,7 +17,17 @@ $this->webroot ?>instagrams/index/$1" class="tag_replace">#$1</a>'));
        $('#lightbox').click(function(){
             $('#lightbox ,.preview_wrapper').hide('slow');
             $('.preview').html('');
-       }) 
+       });
+        $('#statfollowers').click(function(){
+            var userid=$(this).attr('data-user-id');
+            $('#lightbox ,.preview_wrapper').show('slow');
+            $('.preview').load('<?php echo $this->webroot; ?>instagrams/userfollows/'+userid);                      
+       });
+       $('#statfollowing').click(function(){
+            var userid=$(this).attr('data-user-id');
+            $('#lightbox ,.preview_wrapper').show('slow');
+            $('.preview').load('<?php echo $this->webroot; ?>instagrams/userfollowedby/'+userid);                      
+       });    
     });
 </script>
 
