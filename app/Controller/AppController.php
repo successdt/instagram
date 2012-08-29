@@ -35,6 +35,8 @@ class AppController extends Controller {
     function beforeFilter(){
         App::import('vendor','Instagram');
         App::import('vendor','config');
+        $userinfo=$this->Session->read('UserInfo');
+        $this->set('userinfo',$userinfo);
     }
 }
 

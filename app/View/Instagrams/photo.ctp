@@ -18,6 +18,8 @@
     });
 </script>
 
+
+
 <!-- post comment -->
 <script>
 $(document).ready(function(){
@@ -159,10 +161,7 @@ echo $this->Html->image('icons/heart.png', array(
     </div><!-- /p_like_inner -->
 </div><!-- /.p_like -->
 <div class="p_comment">
-    <?php
-foreach ($media['data']['comments']['data'] as $comment):
-
-?>
+    <?php foreach ($media['data']['comments']['data'] as $comment):?>
     <div class="comment-avatar">
         <?php
     echo $this->Html->image($comment['from']['profile_picture'], array(
@@ -172,7 +171,7 @@ foreach ($media['data']['comments']['data'] as $comment):
             'controller' => 'instagrams',
             'action' => 'viewprofile',
             $comment['from']['id'])));
-?>
+        ?>
     </div><!-- /comment-avatar -->
     <div class="comment-inner">
     <?php
@@ -181,14 +180,18 @@ foreach ($media['data']['comments']['data'] as $comment):
         'action' => 'viewprofile',
         $comment['from']['id']), array('description' => 'hello'));
     echo $comment['text'];
-?>
+    ?>
+    <script type="text/javascript">
+    </script>
+    <div class="created-time">
+        <abbr class="timeago" title="<?php echo date("Y-m-d H:i:s", $comment['created_time'])?>"><?php echo date("Y-m-d H:i:s", $comment['created_time'])?></abbr>
+    </div><!-- /created-time -->
     </div> <!-- /.comment-inner -->
     <?php
 endforeach;
 ?>
 </div><!-- /.p_comment -->
 <div class="p_post">
-
     <div class="inline">
         <?php echo $this->Form->input('', array(
         'id' => 'new-post',

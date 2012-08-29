@@ -25,3 +25,13 @@
         });        
     });
 </script>
+<!-- timeago -->
+<script>
+    function prettyTime(){
+        jQuery(document).ready(function() {
+          jQuery("abbr.timeago").timeago();
+        });    
+    }
+    prettyTime();
+    setInterval(function(){prettyTime()},10000);
+</script>

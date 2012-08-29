@@ -5,6 +5,7 @@
 $this->webroot ?>instagrams/index/$1" class="tag_replace">#$1</a>'));
     });
 </script>
+
 <!-- lightbox -->
 <script type="text/javascript">
     $(document).ready(function(){
@@ -147,24 +148,27 @@ array('width' => '204', 'height' => '204')); ?></div><!-- /.thumbnail -->
             break; ?>
                 <div class="comment-avatar">
                     <?php
-        echo $this->Html->image($comment['from']['profile_picture'], array(
-            'width' => '30',
-            'height' => '30',
-            'url' => array(
-                'controller' => 'instagrams',
-                'action' => 'viewprofile',
-                $comment['from']['id'])));
-?>
-                </div><!-- /comment-avatar -->
-                <div class="comment-inner">
-                <?php
-        echo $this->Html->link($comment['from']['username'] . " ", array(
-            'controller' => 'instagrams',
-            'action' => 'viewprofile',
-            $comment['from']['id']));
-        echo $comment['text'];
-        $i++;
-?>
+                                echo $this->Html->image($comment['from']['profile_picture'], array(
+                                    'width' => '30',
+                                    'height' => '30',
+                                    'url' => array(
+                                        'controller' => 'instagrams',
+                                        'action' => 'viewprofile',
+                                        $comment['from']['id'])));
+                        ?>
+                                        </div><!-- /comment-avatar -->
+                                        <div class="comment-inner">
+                                        <?php
+                                echo $this->Html->link($comment['from']['username'] . " ", array(
+                                    'controller' => 'instagrams',
+                                    'action' => 'viewprofile',
+                                    $comment['from']['id']));
+                                echo $comment['text'];
+                                $i++;
+                        ?>
+                        <div class="created-time">
+                            <abbr class="timeago" title="<?php echo date("Y-m-d H:i:s", $comment['created_time'])?>"><?php echo date("Y-m-d H:i:s", $comment['created_time'])?></abbr>
+                        </div><!-- /created-time -->
                 </div> <!-- /.comment-inner -->
             <?php endforeach ?>
         </div><!-- /comment -->

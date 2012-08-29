@@ -9,6 +9,7 @@ echo $this->Html->charset('UTF-8');
 echo $this->Html->script('jquery-1.4.2.min');
 //echo $this->Html->script('jquery.scrollExtend');
 echo $this->Html->script('masonry.min.js');
+echo $this->Html->script('timeago');
 echo $this->Html->css('instagram', 'stylesheet');
 ?>
 </head>

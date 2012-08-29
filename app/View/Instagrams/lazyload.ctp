@@ -99,7 +99,7 @@ $this->webroot ?>instagrams/index/$1" class="tag_replace">#$1</a>'));
 </script>
 <?php
 foreach ($response['data'] as $data): ?>
-    <div class="display-block" id="<?php echo $data['id'] ?>" data-media-liked="<?php echo $data['user_has_liked'] ?>">
+    <div class="display-block" style="float: left;" id="<?php echo $data['id'] ?>" data-media-liked="<?php echo $data['user_has_liked'] ?>">
         <div class="block-like" id="like<?php echo $data['id'] ?>">
         
             <?php
@@ -150,17 +150,20 @@ array('width' => '204', 'height' => '204')); ?></div><!-- /.thumbnail -->
                 'controller' => 'instagrams',
                 'action' => 'viewprofile',
                 $comment['from']['id'])));
-?>
+                ?>
                 </div><!-- /comment-avatar -->
                 <div class="comment-inner">
                 <?php
-        echo $this->Html->link($comment['from']['username'] . " ", array(
-            'controller' => 'instagrams',
-            'action' => 'viewprofile',
-            $comment['from']['id']));
-        echo $comment['text'];
-        $i++;
-?>
+                    echo $this->Html->link($comment['from']['username'] . " ", array(
+                        'controller' => 'instagrams',
+                        'action' => 'viewprofile',
+                        $comment['from']['id']));
+                    echo $comment['text'];
+                    $i++;
+                    ?>
+                    <div class="created-time">
+                        <abbr class="timeago" title="<?php echo date("Y-m-d H:i:s", $comment['created_time'])?>"><?php echo date("Y-m-d H:i:s", $comment['created_time'])?></abbr>
+                    </div><!-- /created-time -->
                 </div> <!-- /.comment-inner -->
             <?php endforeach ?>
         </div><!-- /comment -->

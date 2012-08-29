@@ -33,7 +33,7 @@ $this->webroot ?>instagrams/index/$1" class="tag_replace">#$1</a>'));
        $('.thumbnail').click(function(){        
             var id=$(this).attr('id');                
             $('#lightbox ,.preview_wrapper').show('slow');
-            $('.preview').load('<?php echo $this->webroot; ?>instagrams/photo/'+id);                      
+            $('.preview').load('<?php echo $this->webroot; ?>instagrams/photo/'+id);                     
        });
        $('#lightbox').click(function(){
             $('#lightbox ,.preview_wrapper').hide('slow');
@@ -48,9 +48,11 @@ $(window).scroll(function()
 {            
     if($(window).scrollTop() == $(document).height() - $(window).height())
     {
+
         lazyload();
     }
 });
+
 </script>
 
 <script type="text/javascript">
@@ -61,9 +63,10 @@ $(window).scroll(function()
         success: function(html)
         {
             if(html)
-            {
+            {      
                 $("#content").append(html);
                 $('#loading').hide();
+                prettyTime();
             }else
             {
                 $('#content').html('<center>No more posts to show.</center>');

@@ -31,8 +31,8 @@ class InstagramsController extends AppController
         }
         $this->set('tags', $tags);
         $session = $this->Session->read('InstagramAccessToken');
-        $userinfo=$this->Session->read('UserInfo');
-        $this->set('userinfo',$userinfo);
+//        $userinfo=$this->Session->read('UserInfo');
+//        $this->set('userinfo',$userinfo);
         //debug($userinfo);
         $this->set('session', $session);
         //debug($session);
@@ -142,7 +142,7 @@ class InstagramsController extends AppController
         $config = new config();
         $this->set('config', $config);
         $userinfo=$this->Session->read('UserInfo');
-        $this->set('userinfo',$userinfo);
+//        $this->set('userinfo',$userinfo);
         if(!$id)
             $id=$userinfo['data']['id'];
         $instagram = new Instagram($config->cfg);
@@ -194,10 +194,9 @@ class InstagramsController extends AppController
     }//chưa hoàn thành
     function popular(){
         $config = new config();
-        $this->set('config', $config);;
         $session = $this->Session->read('InstagramAccessToken');
-        $userinfo=$this->Session->read('UserInfo');
-        $this->set('userinfo',$userinfo);
+//        $userinfo=$this->Session->read('UserInfo');
+//        $this->set('userinfo',$userinfo);
         //debug($userinfo);
         $this->set('session', $session);
         //debug($session);
@@ -222,7 +221,6 @@ class InstagramsController extends AppController
     }
     function loaduserfollows($id=null){
         $config = new config();
-        $this->set('config', $config);
         $session = $this->Session->read('InstagramAccessToken');
         $next_cursor=$this->Session->read($id.'next_cursor');
         if($session&&$id&&($next_cursor!=1)){
@@ -252,7 +250,6 @@ class InstagramsController extends AppController
     }
     function loaduserfollowedby($id=null){
         $config = new config();
-        $this->set('config', $config);
         $session = $this->Session->read('InstagramAccessToken');
         $next_cursor=$this->Session->read($id.'next_cursor_by');
         if($session&&$id&&($next_cursor!=1)){
@@ -279,8 +276,8 @@ class InstagramsController extends AppController
         $keyword=$_POST['search'];
         $this->set('option',$option);
         $this->set('session', $session);
-        $userinfo=$this->Session->read('UserInfo');
-        $this->set('userinfo',$userinfo);
+//        $userinfo=$this->Session->read('UserInfo');
+//        $this->set('userinfo',$userinfo);
         if($option&&$keyword){
             $instagram=new Instagram($config->cfg);
             $instagram->setAccessToken($session);
@@ -298,6 +295,30 @@ class InstagramsController extends AppController
             }
             
         }
+    }
+    function feed(){
+        $config = new config();
+        $session = $this->Session->read('InstagramAccessToken');
+        $this->set('session', $session);
+        if($session){
+            $instagram=new Instagram($config->cfg);
+            $instagram->setAccessToken($session);
+            $response=$instagram->getUserFeed();
+            $feed=json_decode($response,true);
+            debug($feed);
+        }        
+    }
+    function searchlocation(){
+        $config=new config();
+        $session = $this->Session->read('InstagramAccessToken');
+        $this->set('session', $session);
+        if($session){
+            $instagram=new Instagram($config->cfg);
+            $instagram->setAccessToken($session);
+            $response=$instagram->getLocationRecentMedia('207466022');
+            $media=json_decode($response,true);
+            debug($media);            
+        }        
     }
 }
 

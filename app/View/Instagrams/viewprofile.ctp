@@ -40,6 +40,7 @@ $this->webroot ?>instagrams/index/$1" class="tag_replace">#$1</a>'));
     });
 </script>
 
+
 <!-- lazyload script -->       
 <script type="text/javascript">
 $(window).scroll(function()
