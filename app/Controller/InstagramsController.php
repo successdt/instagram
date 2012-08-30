@@ -42,8 +42,8 @@ class InstagramsController extends AppController
             //$popular = $instagram->getRecentTags($tags);
             //$response = json_decode($popular, true);
             $this->Session->write('next_max_tag_id', '');
+            $this->Session->write($tags.'end',false);
             //$this->set('response',$response);
-
         }
     }
 
@@ -53,21 +53,29 @@ class InstagramsController extends AppController
         if (!($tags)) {
             $tags = 'tech';
         }
+        $this->layout = '';
         $session = $this->Session->read('InstagramAccessToken');
         $this->set('session', $session);
+        $end=$this->Session->read($tags.'end');
         //debug($session);
-        if ($session) {
+        if ($session&&(!$end)) {
             $instagram = new Instagram($config->cfg);
             $instagram->setAccessToken($session);
             $max_id = $this->Session->read('next_max_tag_id');
             $popular = $instagram->getRecentTags($tags, $max_id);
             $response = json_decode($popular, true);
             //debug($response);
-            $this->Session->write('next_max_tag_id', $response['pagination']['next_max_tag_id']);
+            if(isset($response['pagination']['next_max_tag_id']))
+                $this->Session->write('next_max_tag_id', $response['pagination']['next_max_tag_id']);
+            else
+                $this->Session->write($tags.'end',true);
             $this->set('response', $response);
 
         }
-        $this->layout = '';
+        else
+            $this->render('loaduserrecent');
+            
+        
 
     }
 
@@ -158,6 +166,7 @@ class InstagramsController extends AppController
             $this->Session->write($id.'next_cursor','');
             $this->Session->write($id.'_next_max_tag_id', '');
         }
+        else $this->redirect(array('controller'=>'instagrams','action'=>'index'));
 
         //debug($user);
         
@@ -207,8 +216,8 @@ class InstagramsController extends AppController
             $media = json_decode($popular, true);
             $this->set('media',$media);
             //debug($media);
-
         }
+        else $this->redirect(array('controller'=>'instagrams','action'=>'index'));
     }
     function userfollows($id=null){
         $config = new config();
@@ -245,8 +254,10 @@ class InstagramsController extends AppController
         if($session&&$id){
             $this->set('id',$id);
             $this->Session->write($id.'next_cursor_by','');
+            $this->layout='';
         }
-        $this->layout='';           
+        else $this->redirect(array('controller'=>'instagrams','action'=>'index'));
+                   
     }
     function loaduserfollowedby($id=null){
         $config = new config();
@@ -295,6 +306,7 @@ class InstagramsController extends AppController
             }
             
         }
+        else $this->redirect(array('controller'=>'instagrams','action'=>'index'));
     }
     function feed(){
         $config = new config();
@@ -306,19 +318,38 @@ class InstagramsController extends AppController
             $response=$instagram->getUserFeed();
             $feed=json_decode($response,true);
             debug($feed);
-        }        
+        }
+        else $this->redirect(array('controller'=>'instagrams','action'=>'index'));        
     }
-    function searchlocation(){
+    function locationrecentmedia($id=null){
         $config=new config();
         $session = $this->Session->read('InstagramAccessToken');
         $this->set('session', $session);
-        if($session){
+        if($session&&$id){
             $instagram=new Instagram($config->cfg);
             $instagram->setAccessToken($session);
-            $response=$instagram->getLocationRecentMedia('207466022');
+            $response=$instagram->getLocationRecentMedia($id);
             $media=json_decode($response,true);
-            debug($media);            
-        }        
+            //debug($media);
+            $this->set('media',$media);
+            $this->render('popular');            
+        }
+        else $this->redirect(array('controller'=>'instagrams','action'=>'index'));        
+    }
+    function nearby($latitude=null, $longitude=null){
+        $config=new config();
+        $session = $this->Session->read('InstagramAccessToken');
+        $this->set('session', $session);
+        if($session&&isset($latitude)&&isset($longitude)){
+            $instagram=new Instagram($config->cfg);
+            $instagram->setAccessToken($session);
+            $response=$instagram->searchLocation($latitude,$longitude);
+            $location=json_decode($response,true);
+            $this->set('location',$location);
+            //debug($location);
+        }else
+        $this->redirect(array('controller'=>'instagrams','action'=>'index'));       
+        
     }
 }
 

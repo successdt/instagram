@@ -76,6 +76,7 @@ a:link,a:visited {
     left: 0px;
 	padding:55px 0px 0px 280px ;
     overflow-y: auto;
+    height: auto;
 
 }
 
@@ -156,7 +157,7 @@ a:link,a:visited {
     -webkit-transition:all 1s;
     transition: all 1s;
     */
-    top:90000px;
+    top:0px;
 	width:224px;
 	height:auto;
 	min-height:200px;

@@ -41,19 +41,21 @@ $this->webroot ?>instagrams/index/$1" class="tag_replace">#$1</a>'));
        }) 
     });
 </script>
-
+<div class="lazyload">
 <!-- lazyload script -->       
-<script type="text/javascript">
-$(window).scroll(function()
-{            
-    if($(window).scrollTop() == $(document).height() - $(window).height())
-    {
+    <script type="text/javascript">
+    $(window).scroll(function()
+    {            
+        if($(window).scrollTop() == $(document).height() - $(window).height())
+        {
+    
+            lazyload();
+        }
+    });
+    
+    </script>
+</div><!-- /lazyload--> 
 
-        lazyload();
-    }
-});
-
-</script>
 
 <script type="text/javascript">
     function lazyload(){

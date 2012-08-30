@@ -14,8 +14,7 @@
     <div class="inline">
         <button class="start gray" onclick="window.location='<?php echo
             $this->webroot ?>instagrams'">Home</button>
-        <button class="middle gray" onclick="window.location='<?php echo
-            $this->webroot ?>instagrams/nearby'">Nearby</button>
+        <button class="middle gray nearby" id="nearby">Nearby</button>
         <button class="middle gray" onclick="window.location='<?php echo $this->webroot ?>instagrams/popular'">Popular</button>
         <button class="middle gray" onclick="window.location='<?php echo
             $this->webroot ?>instagrams/viewprofile/<?php if ($userinfo['data']['profile_picture'])

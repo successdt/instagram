@@ -4,7 +4,7 @@
  * @copyright 2012
  */
 ?>
-
+<?php if(isset($response)){ ?>
 <!-- autolink script -->
 <script type="text/javascript">
     $(document).ready(function() {
@@ -99,7 +99,7 @@ $this->webroot ?>instagrams/index/$1" class="tag_replace">#$1</a>'));
 </script>
 <?php
 foreach ($response['data'] as $data): ?>
-    <div class="display-block" style="float: left;" id="<?php echo $data['id'] ?>" data-media-liked="<?php echo $data['user_has_liked'] ?>">
+    <div class="display-block"  id="<?php echo $data['id'] ?>" data-media-liked="<?php echo $data['user_has_liked'] ?>">
         <div class="block-like" id="like<?php echo $data['id'] ?>">
         
             <?php
@@ -169,3 +169,4 @@ array('width' => '204', 'height' => '204')); ?></div><!-- /.thumbnail -->
         </div><!-- /comment -->
     </div><!-- /.display-block -->
 <?php endforeach ?>
+<?php }?>

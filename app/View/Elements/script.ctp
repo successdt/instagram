@@ -1,14 +1,11 @@
 <script>
-    function divfloat(){
-        $(function(){
-          $('#content').masonry({
-            // options
-                itemSelector : '.display-block',
-                columnWidth : 252
-          });
-        });                
-    }
-    divfloat();
+$(function(){
+      $('#content').masonry({
+        // options
+            itemSelector : '.display-block',
+            columnWidth : 252
+      });
+    });                
 </script>
 <script>
     $(document).ready(function(){
@@ -34,4 +31,17 @@
     }
     prettyTime();
     setInterval(function(){prettyTime()},10000);
+</script>
+
+<!-- location -->
+<script language="JavaScript" src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){    
+        var latitude=geoplugin_latitude();
+        var longitude=geoplugin_longitude();
+        $('#nearby').click(function(){
+           window.location.href="<?php echo $this->webroot?>instagrams/nearby/"+latitude+'/'+longitude; 
+        });        
+    });
 </script>
