@@ -1,11 +1,13 @@
 <!-- autolink script -->
 <script type="text/javascript">
-    $(document).ready(function() {
-      $('#content').html($('#content').html().replace(/#([a-zA-Z1-9]{1,})/gi,'<a href="<?php echo
-$this->webroot ?>instagrams/index/$1" class="tag_replace">#$1</a>'));
+$(document).ready(function() {
+    $('.display-block').html(function(index, old) {
+        var root = "<?php echo $this->webroot ?>";
+        var match = /#([a-zA-Z1-9]{1,})/gi;
+        return old.replace(match, '<a href="' + root + 'instagram/instagrams/index/$1" class="tag_replace">#$1</a>');
     });
+});
 </script>
-
 <!-- lightbox -->
 <script type="text/javascript">
     $(document).ready(function(){

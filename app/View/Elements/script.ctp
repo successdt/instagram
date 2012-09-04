@@ -36,7 +36,6 @@ $(function(){
 <!-- location -->
 <script language="JavaScript" src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
 <script type="text/javascript">
-
     $(document).ready(function(){    
         var latitude=geoplugin_latitude();
         var longitude=geoplugin_longitude();
@@ -44,4 +43,13 @@ $(function(){
            window.location.href="<?php echo $this->webroot?>instagrams/nearby/"+latitude+'/'+longitude; 
         });        
     });
+</script>
+<!-- facebook -->
+<script>
+function fb_like() {
+    url=location.href;
+    title=document.title;
+    window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(url)+'&t='+encodeURIComponent(title),'sharer','toolbar=0,status=0,width=626,height=436');
+    return false;
+}
 </script>

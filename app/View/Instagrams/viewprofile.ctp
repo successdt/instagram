@@ -7,13 +7,6 @@ if (!$session) {
  * Nếu tồn tại rồi thì bắt đầu lấy dữ liệu
  */
 ?>
-<!-- autolink script -->
-<script type="text/javascript">
-    $(document).ready(function() {
-      $('#content').html($('#content').html().replace(/#([a-zA-Z1-9]{1,})/gi,'<a href="<?php echo
-$this->webroot ?>instagrams/index/$1" class="tag_replace">#$1</a>'));
-    });
-</script>
 
 <!-- ligthbox script -->
 <script type="text/javascript">

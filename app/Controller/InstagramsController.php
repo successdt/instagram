@@ -20,7 +20,7 @@ class InstagramsController extends AppController
     var $uses = array();
     var $components = array('Email', 'Session');
     var $_sessionUsername = "Username";
-    var $layout = 'instagram';
+    var $layout = 'bootstrap';
     //var $layout='default';
     function index($tags = null)
     {
@@ -346,10 +346,13 @@ class InstagramsController extends AppController
             $response=$instagram->searchLocation($latitude,$longitude);
             $location=json_decode($response,true);
             $this->set('location',$location);
-            //debug($location);
+            debug($location);
         }else
         $this->redirect(array('controller'=>'instagrams','action'=>'index'));       
         
+    }
+    function bootstrap(){
+        $this->layout='bootstrap';
     }
 }
 
