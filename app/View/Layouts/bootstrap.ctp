@@ -65,6 +65,17 @@ echo $this->Html->css('mybootstrap', 'stylesheet');
                         My photos
                     </a>
                 </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-info-sign icon-black"></i>
+                        About
+                        <b class="caret"></b> 
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><?php echo $this->Html->link('Help',array('controller'=>'instagrams','action'=>'help')) ?></li>
+                        <li><?php echo $this->Html->link('About us',array('controller'=>'instagrams','action'=>'about')) ?></li>
+                    </ul>
+                </li>
             </ul>
             <ul class="nav pull-right">
                 <li class="dropdown">  
@@ -78,8 +89,8 @@ echo $this->Html->css('mybootstrap', 'stylesheet');
                             <form class="navbar-search pull-right input-append" method="post" action="<?php echo $this->webroot?>instagrams/search">
                                  <div class="input-append" style="padding: 10px;">
                                   <input class="span2" style="top: 6px;" name="search" placeholder="Search" id="appendedInputButton" size="16" type="text">
-                                  <button type="submit" class="btn" type="button">Go!</button>
-                                    <label class="radio">
+                                  <button type="submit" class="btn">Go!</button>
+                                    <label class="radio" style="margin-top: 5px;">
                                         <input type="radio" name="searchby" value="tag"  checked="checked"/>
                                         Tag
                                     </label>
@@ -112,6 +123,12 @@ echo $this->Html->css('mybootstrap', 'stylesheet');
 
 <div id="content">
     <?php echo $this->fetch('content') ?>
+    <!-- masonry -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+           $('#content').masonry('reload'); 
+        });
+    </script>
 </div><!--  /content-->
 <div id="loading"><div id="loading-inner"> <?php echo $this->Html->image('loading.gif',
             array(

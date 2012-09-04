@@ -346,7 +346,7 @@ class InstagramsController extends AppController
             $response=$instagram->searchLocation($latitude,$longitude);
             $location=json_decode($response,true);
             $this->set('location',$location);
-            debug($location);
+            //debug($location);
         }else
         $this->redirect(array('controller'=>'instagrams','action'=>'index'));       
         

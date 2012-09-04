@@ -43,10 +43,8 @@ if (!$session) {
             lazyload();
         }
     });
-    
     </script>
 </div><!-- /lazyload--> 
-
 
 <script type="text/javascript">
     function lazyload(){

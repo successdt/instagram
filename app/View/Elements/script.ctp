@@ -36,11 +36,21 @@ $(function(){
 <!-- location -->
 <script language="JavaScript" src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
 <script type="text/javascript">
-    $(document).ready(function(){    
-        var latitude=geoplugin_latitude();
-        var longitude=geoplugin_longitude();
+    $(document).ready(function(){
+        function getLocation()
+        {
+            if (navigator.geolocation)
+            {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            }
+        
+        }
+        function showPosition(position)
+        {
+          window.location.href="<?php echo $this->webroot?>instagrams/nearby/"+position.coords.latitude+'/'+ position.coords.longitude;	
+        }
         $('#nearby').click(function(){
-           window.location.href="<?php echo $this->webroot?>instagrams/nearby/"+latitude+'/'+longitude; 
+            getLocation();
         });        
     });
 </script>
@@ -53,3 +63,4 @@ function fb_like() {
     return false;
 }
 </script>
+

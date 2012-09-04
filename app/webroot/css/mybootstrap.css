@@ -20,7 +20,6 @@ body {
 	width:auto;
     left: 0px;
 	padding:40px 0px 0px 0px ;
-    overflow: auto;
     height: auto;
 }
 #lightbox{
@@ -73,7 +72,7 @@ body {
     -webkit-transition:all 1s;
     transition: all 1s;
     */
-    top:0px;
+    top:14px;
 	width:224px;
 	height:auto;
 	min-height:200px;
@@ -95,6 +94,8 @@ body {
 .thumbnail{
     margin: 10px 10px 10px 10px;
     cursor: pointer;
+    width: 204px;
+    height: 204px;
 
 }
 

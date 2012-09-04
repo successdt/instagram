@@ -11,7 +11,7 @@ $(document).ready(function() {
     $('.display-block').html(function(index, old) {
         var root = "<?php echo $this->webroot ?>";
         var match = /#([a-zA-Z1-9]{1,})/gi;
-        return old.replace(match, '<a href="' + root + 'instagram/instagrams/index/$1" class="tag_replace">#$1</a>');
+        return old.replace(match, '<a href="' + root + 'instagrams/index/$1" class="tag_replace">#$1</a>');
     });
 });
 </script>
@@ -100,6 +100,15 @@ $(document).ready(function() {
         });
     });
 </script>
+<!-- twitter -->
+<script>
+    $(document).ready(function(){
+        $('.twitter').click(function(){
+            var id=$(this).attr('data-media-id');
+            window.open('https://twitter.com/share?url=http%3A%2F%2Fltt.web44.net%2Finstagrams%2Fmedia%2F'+id,'media');
+        });
+    });
+</script>
 <?php
 foreach ($response['data'] as $data): ?>
     <div class="display-block"  id="<?php echo $data['id'] ?>" data-media-liked="<?php echo $data['user_has_liked'] ?>">
@@ -111,14 +120,12 @@ foreach ($response['data'] as $data): ?>
                 'class' => 'social main-facebook',
                 'data-media-id' => $data['id']));
             ?>
-            <a href="https://twitter.com/share?url=http%3A%2F%2Fltt.web44.net%2Finstagrams%2Fmedia%2F<?php echo $data['id'] ?>" target="_blank">
             <?php
             echo $this->Html->image('icons/twitter.png', array(
                 'alt' => 'twfollow',
                 'class' => 'twitter social',
                 'data-media-id' => $data['id']));
             ?>
-            </a>
             <?php
             echo $this->Html->image('icons/googleplus.png', array(
                 'alt' => 'google+',

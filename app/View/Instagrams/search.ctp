@@ -36,10 +36,11 @@ if (!$session) {
                 <?php echo $this->Html->image($user['profile_picture'],array('width'=>'50','height'=>'50')) ?>
             </div> <!-- /block-avatar -->
             <div class="block-info inline">
-                <div class="block-username"><?php echo $this->Html->link($user['username'],array(
-                    'controller'=>'instagrams',
-                    'action'=>'viewprofile',
-                    $user['id'])) ?>
+                <div class="block-username">
+                    <?php echo $this->Html->link($user['username'],array(
+                        'controller'=>'instagrams',
+                        'action'=>'viewprofile',
+                        $user['id'])) ?>
                 </div><!-- block-username -->
                 <div class="block-fullname"><?php echo $user['full_name'] ?></div><!-- block-fullname -->
             </div> <!-- /block-info -->
