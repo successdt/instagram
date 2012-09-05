@@ -101,6 +101,8 @@ $(document).ready(function(){
                 });
             });     
         <?php } ?>
+        facebook();
+        twitter();
     });
 </script>
 
@@ -129,23 +131,16 @@ echo $media['data']['caption']['text'];
 </div><!--/p_text  -->
 <div class="p_close"></div><!-- /p_close -->
 <div class="p_like">
-    <a href="http://www.facebook.com/share.php?u=http%3A%2F%2Fltt.web44.net%2Finstagrams%2Fmedia%2F<?php echo $media['data']['id'] ?>" onclick="return fb_like()" target="_blank">
     <?php
 echo $this->Html->image('icons/facebook.png', array(
     'alt' => 'fblike',
     'class' => 'facebook social',
     'data-media-id' => $media['data']['id']));
-    ?>
-    </a>
-    <a href="https://twitter.com/share?url=http%3A%2F%2Fltt.web44.net%2Finstagrams%2Fmedia%2F<?php echo $media['data']['id'] ?>" target="_blank">
-    <?php
+
 echo $this->Html->image('icons/twitter.png', array(
     'alt' => 'twfollow',
     'class' => 'twitter social',
     'data-media-id' => $media['data']['id']));
-    ?>
-    </a>
-    <?php 
 echo $this->Html->image('icons/googleplus.png', array(
     'alt' => 'google+',
     'class' => 'googleplus social',

@@ -220,6 +220,7 @@ class InstagramsController extends AppController
         else $this->redirect(array('controller'=>'instagrams','action'=>'index'));
     }
     function userfollows($id=null){
+
         $config = new config();
         $session = $this->Session->read('InstagramAccessToken');
         if($session&&$id){
@@ -229,6 +230,7 @@ class InstagramsController extends AppController
         $this->layout='';           
     }
     function loaduserfollows($id=null){
+
         $config = new config();
         $session = $this->Session->read('InstagramAccessToken');
         $next_cursor=$this->Session->read($id.'next_cursor');
@@ -237,9 +239,10 @@ class InstagramsController extends AppController
             $instagram->setAccessToken($session);
             $followed=$instagram->getUserFollows($id,$next_cursor);
             $data=json_decode($followed,true);
+            $this->set('data',$data);
+            //debug($data);
             if(isset($data['pagination']['next_cursor'])){
                 $this->Session->write($id.'next_cursor',$data['pagination']['next_cursor']);
-                $this->set('data',$data);
                 //debug($data);                
             }else{
                 $this->Session->write($id.'next_cursor','1');
@@ -268,9 +271,9 @@ class InstagramsController extends AppController
             $instagram->setAccessToken($session);
             $followed=$instagram->getUserFollowedBy($id,$next_cursor);
             $data=json_decode($followed,true);
+            $this->set('data',$data);
             if(isset($data['pagination']['next_cursor'])){
                 $this->Session->write($id.'next_cursor_by',$data['pagination']['next_cursor']);
-                $this->set('data',$data);
                 //debug($data);                
             }else{
                 $this->Session->write($id.'next_cursor_by','1');
@@ -351,8 +354,20 @@ class InstagramsController extends AppController
         $this->redirect(array('controller'=>'instagrams','action'=>'index'));       
         
     }
-    function bootstrap(){
-        $this->layout='bootstrap';
+    function media($id = null){
+        $config = new config();
+        $session = $this->Session->read('InstagramAccessToken');
+        if ($session&&$id) {
+            $instagram = new Instagram($config->cfg);
+            $instagram->setAccessToken($session);
+            $response = $instagram->getMedia($id);
+            $media = json_decode($response, true);
+            //debug($media);
+            $this->set('media', $media);
+            $this->render('photo');
+        }
+        else 
+            $this->redirect(array('controller'=>'instagrams','action'=>'index'));
     }
 }
 

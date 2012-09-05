@@ -56,11 +56,22 @@ $(function(){
 </script>
 <!-- facebook -->
 <script>
-function fb_like() {
-    url=location.href;
-    title=document.title;
-    window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(url)+'&t='+encodeURIComponent(title),'sharer','toolbar=0,status=0,width=626,height=436');
-    return false;
+function facebook(){
+    $('.facebook, .main-facebook').click(function(){
+        var id=$(this).attr('data-media-id');
+        var url='http://ltt.web44.net/instagrams/media/'+id;
+        var title='Myinsta';
+        window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(url)+'&t='+encodeURIComponent(title),'sharer','toolbar=0,status=0,width=626,height=436');
+    });
 }
+</script>
+<!-- twitter -->
+<script>
+    function twitter(){
+        $('.twitter').click(function(){
+            var id=$(this).attr('data-media-id');
+            window.open('https://twitter.com/share?url=http%3A%2F%2Fltt.web44.net%2Finstagrams%2Fmedia%2F'+id,'media','toolbar=0,status=0,width=626,height=436');
+        });        
+    }
 </script>
 

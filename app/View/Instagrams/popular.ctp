@@ -4,7 +4,7 @@ $(document).ready(function() {
     $('.display-block').html(function(index, old) {
         var root = "<?php echo $this->webroot ?>";
         var match = /#([a-zA-Z1-9]{1,})/gi;
-        return old.replace(match, '<a href="' + root + 'instagram/instagrams/index/$1" class="tag_replace">#$1</a>');
+        return old.replace(match, '<a href="' + root + 'instagrams/index/$1" class="tag_replace">#$1</a>');
     });
 });
 </script>
@@ -102,6 +102,8 @@ $(document).ready(function() {
             var id=$(this).attr('id');
             $('#like'+id).hide();
         });
+        facebook();
+        twitter();
     });
 </script>
 <!-- twitter -->

@@ -58,6 +58,8 @@ if (!$session) {
                 $("#content").append(html);
                 $('#loading').hide();
                 prettyTime();
+                facebook();
+                twitter();
             }else
             {
                 $('#content').html('<center>No more posts to show.</center>');

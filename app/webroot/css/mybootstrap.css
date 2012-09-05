@@ -92,10 +92,11 @@ body {
 
 
 .thumbnail{
-    margin: 10px 10px 10px 10px;
+    margin: 10px auto;
     cursor: pointer;
     width: 204px;
     height: 204px;
+    border: none;
 
 }
 
@@ -249,7 +250,7 @@ body {
     padding: 14px 14px 14px 0px;
     width: 280px;
     float: left;
-    height: 340px;
+    height: 320px;
     overflow: auto;
     border-bottom: 1px solid #EEE;
 

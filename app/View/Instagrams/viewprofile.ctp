@@ -56,6 +56,8 @@ $(window).scroll(function()
                 {
                     $("#content").append(html);
                     $('#loading').hide();
+                    facebook();
+                    twitter();
                 }else
                 {
                     //$('#content').html('<center>No more posts to show.</center>');
