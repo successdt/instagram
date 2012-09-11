@@ -1,0 +1,3 @@
+<script>
+$('.lazyload').html('');
+</script>

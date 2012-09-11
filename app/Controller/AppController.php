@@ -35,6 +35,8 @@ class AppController extends Controller {
     function beforeFilter(){
         App::import('vendor','Instagram');
         App::import('vendor','config');
+        App::import('vendor','Meshtiles');
+        App::import('vendor','Meshconfig');
         $userinfo=$this->Session->read('UserInfo');
         $this->set('userinfo',$userinfo);
     }

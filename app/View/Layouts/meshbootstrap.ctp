@@ -18,13 +18,13 @@ echo $this->Html->css('mybootstrap', 'stylesheet');
 </head>
 
 <body>
-<?php  echo $this->element('script') ?>
+<?php  echo $this->element('meshscript') ?>
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
             <ul class="nav">
                 <li class="active">
-                    <a class="brand" href="<?php echo $this->webroot?>instagrams/index">MyInsta</a>
+                    <a class="brand" href="<?php echo $this->webroot?>meshtiles/index">Meshtiles</a>
                 </li>
                 <li class="dropdown">  
                     <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
@@ -33,18 +33,18 @@ echo $this->Html->css('mybootstrap', 'stylesheet');
                         <b class="caret"></b>  
                     </a>  
                     <ul class="dropdown-menu">  
-                        <li><?php echo $this->Html->link('Featured',array('controller'=>'instagrams','action'=>'index','featured')) ?></li>
-                        <li><?php echo $this->Html->link('Brands',array('controller'=>'instagrams','action'=>'index','brands')) ?></li>
-                        <li><?php echo $this->Html->link('Celebrities',array('controller'=>'instagrams','action'=>'index','celebrities')) ?></li>
-                        <li><?php echo $this->Html->link('Fashion',array('controller'=>'instagrams','action'=>'index','fashion')) ?></li>
-                        <li><?php echo $this->Html->link('Food',array('controller'=>'instagrams','action'=>'index','food')) ?></li>
-                        <li><?php echo $this->Html->link('Travel',array('controller'=>'instagrams','action'=>'index','travel')) ?></li>
-                        <li><?php echo $this->Html->link('Animals',array('controller'=>'instagrams','action'=>'index','animals')) ?></li>
-                        <li><?php echo $this->Html->link('Sports',array('controller'=>'instagrams','action'=>'index','sports')) ?></li>
-                        <li><?php echo $this->Html->link('Music',array('controller'=>'instagrams','action'=>'index','music')) ?></li>
-                        <li><?php echo $this->Html->link('Architecture',array('controller'=>'instagrams','action'=>'index','architecture')) ?></li>
-                        <li><?php echo $this->Html->link('Arts',array('controller'=>'instagrams','action'=>'index','arts')) ?></li>
-                        <li><?php echo $this->Html->link('Tech',array('controller'=>'instagrams','action'=>'index','tech')) ?></li> 
+                        <li><?php echo $this->Html->link('Featured',array('controller'=>'meshtiles','action'=>'index','featured')) ?></li>
+                        <li><?php echo $this->Html->link('Brands',array('controller'=>'meshtiles','action'=>'index','brands')) ?></li>
+                        <li><?php echo $this->Html->link('Celebrities',array('controller'=>'meshtiles','action'=>'index','celebrities')) ?></li>
+                        <li><?php echo $this->Html->link('Fashion',array('controller'=>'meshtiles','action'=>'index','fashion')) ?></li>
+                        <li><?php echo $this->Html->link('Food',array('controller'=>'meshtiles','action'=>'index','food')) ?></li>
+                        <li><?php echo $this->Html->link('Travel',array('controller'=>'meshtiles','action'=>'index','travel')) ?></li>
+                        <li><?php echo $this->Html->link('Animals',array('controller'=>'meshtiles','action'=>'index','animals')) ?></li>
+                        <li><?php echo $this->Html->link('Sports',array('controller'=>'meshtiles','action'=>'index','sports')) ?></li>
+                        <li><?php echo $this->Html->link('Music',array('controller'=>'meshtiles','action'=>'index','music')) ?></li>
+                        <li><?php echo $this->Html->link('Architecture',array('controller'=>'meshtiles','action'=>'index','architecture')) ?></li>
+                        <li><?php echo $this->Html->link('Arts',array('controller'=>'meshtiles','action'=>'index','arts')) ?></li>
+                        <li><?php echo $this->Html->link('Tech',array('controller'=>'meshtiles','action'=>'index','tech')) ?></li> 
                     </ul>  
                 </li>
                 <li>
@@ -54,13 +54,13 @@ echo $this->Html->css('mybootstrap', 'stylesheet');
                     </a>
                 </li>
                 <li>
-                    <a class="" href="<?php echo $this->webroot ?>instagrams/popular">
+                    <a class="" href="<?php echo $this->webroot ?>meshtiles/popular">
                         <i class="icon-user icon-black"></i>
                         Popular
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo $this->webroot ?>instagrams/viewprofile/<?php if (isset($userinfo['data']['profile_picture']))echo $userinfo['data']['id'] ?>">
+                    <a href="<?php echo $this->webroot ?>meshtiles/viewprofile/<?php if (isset($userinfo['data']['profile_picture']))echo $userinfo['data']['id'] ?>">
                         <i class="icon-picture icon-black"></i>
                         My photos
                     </a>
@@ -72,8 +72,8 @@ echo $this->Html->css('mybootstrap', 'stylesheet');
                         <b class="caret"></b> 
                     </a>
                     <ul class="dropdown-menu">
-                        <li><?php echo $this->Html->link('Help',array('controller'=>'instagrams','action'=>'help')) ?></li>
-                        <li><?php echo $this->Html->link('About us',array('controller'=>'instagrams','action'=>'about')) ?></li>
+                        <li><?php echo $this->Html->link('Help',array('controller'=>'meshtiles','action'=>'help')) ?></li>
+                        <li><?php echo $this->Html->link('About us',array('controller'=>'meshtiles','action'=>'about')) ?></li>
                     </ul>
                 </li>
             </ul>
@@ -86,7 +86,7 @@ echo $this->Html->css('mybootstrap', 'stylesheet');
                     </a>  
                     <ul class="dropdown-menu">  
                         <li>
-                            <form class="navbar-search pull-right input-append" method="post" action="<?php echo $this->webroot?>instagrams/search">
+                            <form class="navbar-search pull-right input-append" method="post" action="<?php echo $this->webroot?>meshtiles/search">
                                  <div class="input-append" style="padding: 10px;">
                                   <input class="span2" style="top: 6px;" name="search" placeholder="Search" id="appendedInputButton" size="16" type="text">
                                   <button type="submit" class="btn">Go!</button>
@@ -104,7 +104,7 @@ echo $this->Html->css('mybootstrap', 'stylesheet');
                     </ul>  
                 </li>                   
                 <li>
-                    <a href="<?php echo $this->webroot?>instagrams/logout">
+                    <a href="<?php echo $this->webroot?>meshtiles/logout">
                         <i class="icon-eject icon-black"></i>
                         Logout
                     </a>
