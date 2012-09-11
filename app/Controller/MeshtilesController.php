@@ -88,11 +88,11 @@ class MeshtilesController extends AppController
         $config = new meshconfig();
         $meshtiles = new Meshtiles($config->cfg);
         $accessToken = $_GET['access_token'];
-        debug($accessToken);
+        //debug($accessToken);
         $meshtiles->setAccessToken($accessToken);
         $response=$meshtiles->getUser($config->cfg);
         $userinfo=json_decode($response,true);
-        debug($userinfo);
+        //debug($userinfo);
         $this->Session->write('MeshtilesAccessToken', $accessToken);
         $this->Session->write('UserInfo',$userinfo);
         //$this->set('config',$config);
@@ -122,6 +122,19 @@ class MeshtilesController extends AppController
         }
         $this->layout = '';        
     }
+    function load_comment($id){
+        $config = new meshconfig();
+        $session = $this->Session->read('MeshtilesAccessToken');
+        if ($session) {
+            $meshtiles = new Meshtiles($config->cfg);
+            $meshtiles->setAccessToken($session);           
+            $comments=$meshtiles->getMediaComments($id);
+            $comment=json_decode($comments,true);
+            $this->set('comments',$comment);
+            $this->render('new_comment');
+        }
+        $this->layout = '';         
+    }
     function like($like=null,$id=null){
         $config = new meshconfig();
         $session = $this->Session->read('MeshtilesAccessToken');
@@ -143,17 +156,17 @@ class MeshtilesController extends AppController
         $config = new meshconfig();
         $this->set('config', $config);
         $userinfo=$this->Session->read('UserInfo');
-//        $this->set('userinfo',$userinfo);
         if(!$id)
-            $id=$userinfo['data']['id'];
+            $id=$userinfo['user_id'];
         $meshtiles = new Meshtiles($config->cfg);
         $session = $this->Session->read('MeshtilesAccessToken');
         if($session){
             $this->set('session', $session);
             $meshtiles->setAccessToken($session);
-            $response=$meshtiles->getUser($id);
+            $response=$meshtiles->getUserViewDetail($id);
             $user=json_decode($response,true);
             $this->set('user',$user);
+            debug($user);
             //Bắt load từ đầu
             $this->Session->write($id.'_end',false);
             $this->Session->write($id.'next_cursor','');
@@ -196,21 +209,40 @@ class MeshtilesController extends AppController
     }//chưa hoàn thành
     function popular(){
         $config = new meshconfig();
+        $meshtiles=new Meshtiles($config->cfg);
+        $this->set('tags',$tags);
         $session = $this->Session->read('MeshtilesAccessToken');
-//        $userinfo=$this->Session->read('UserInfo');
-//        $this->set('userinfo',$userinfo);
-        //debug($userinfo);
         $this->set('session', $session);
-        //debug($session);
-        if ($session) {
+        if($session){
+            $this->Session->write('popular_next_page', 1);
+            $this->Session->write('popular_end',false);
+        }else{
+            $meshtiles->openAuthorizationUrl();
+        }
+
+    }
+    function loadpopular(){
+        $config = new meshconfig();
+        $this->layout = '';
+        $session = $this->Session->read('MeshtilesAccessToken');
+        $this->set('session', $session);
+        $end=$this->Session->read('popular_end');
+        if ($session&&(!$end)) {
             $meshtiles = new Meshtiles($config->cfg);
             $meshtiles->setAccessToken($session);
-            $popular = $meshtiles->getPopularMedia();
-            $media = json_decode($popular, true);
-            $this->set('media',$media);
-            //debug($media);
+            $next_page = $this->Session->read('popular_next_page');
+            $popular = $meshtiles->getPopularMedia($next_page);
+            $response = json_decode($popular, true);
+            //debug($response);
+            if(count($response['photo']==32))
+                $this->Session->write('popular_next_page', $next_page+1);
+            else
+                $this->Session->write('popular_end',true);
+            $this->set('response', $response);
+            $this->render('lazyload');
         }
-        else $this->redirect(array('controller'=>'meshtiless','action'=>'index'));
+        else
+            $this->render('loaduserrecent');
     }
     function userfollows($id=null){
 

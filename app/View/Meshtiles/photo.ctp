@@ -37,7 +37,23 @@ $(document).ready(function(){
    }); 
 });
 </script>
-
+<!-- load comment -->
+<script>
+    $(document).ready(function(){
+        $('.viewall').click(function(){
+            var id=$(this).attr('data-media-id');
+            $('#loading').show();
+            //alert(id);
+            $.ajax({
+                url:"<?php echo $this->webroot ?>meshtiles/load_comment/"+id,
+                success:function(html){
+                    $('.p_comment').html(html);
+                    $('#loading').hide();
+                }
+            });
+        });
+    });
+</script>
 <!-- click like -->
 <script>
     $(document).ready(function(){
@@ -190,7 +206,7 @@ array(
     </div><!-- /p_like_inner -->
 </div><!-- /.p_like -->
 <div class="p_comment">
-    <button class="white">Load more</button>
+    
     <?php foreach ($media['photo']['comment'] as $comment):?>
     <div class="comment-avatar">
         <?php
@@ -219,6 +235,11 @@ array(
         </div><!-- /created-time -->
     </div> <!-- /.comment-inner -->
     <?php endforeach; ?>
+    <?php if($media['photo']['number_comment']>5): ?>
+        <a class="btn viewall" data-media-id="<?php echo $media['photo']['photo_id'] ?>">
+            View all <?php echo $media['photo']['number_comment']?> comments
+        </a>
+    <?php endif ?>
 </div><!-- /.p_comment -->
 <div class="p_post">
     <div class="inline">
