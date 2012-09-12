@@ -14,7 +14,7 @@ if (!$session) {
        $('.thumbnail').click(function(){        
             var id=$(this).attr('id');                
             $('#lightbox ,.preview_wrapper').show('slow');
-            $('.preview').load('<?php echo $this->webroot; ?>instagrams/photo/'+id);                      
+            $('.preview').load('<?php echo $this->webroot; ?>meshtiles/photo/'+id);                      
        });
        $('#lightbox').click(function(){
             $('#lightbox ,.preview_wrapper').hide('slow');
@@ -23,12 +23,12 @@ if (!$session) {
         $('#statfollowers').click(function(){
             var userid=$(this).attr('data-user-id');
             $('#lightbox ,.preview_wrapper').show('slow');
-            $('.preview').load('<?php echo $this->webroot; ?>instagrams/userfollowedby/'+userid);                      
+            $('.preview').load('<?php echo $this->webroot; ?>meshtiles/userfollowedby/'+userid);                      
        });
        $('#statfollowing').click(function(){
             var userid=$(this).attr('data-user-id');
             $('#lightbox ,.preview_wrapper').show('slow');
-            $('.preview').load('<?php echo $this->webroot; ?>instagrams/userfollows/'+userid);                      
+            $('.preview').load('<?php echo $this->webroot; ?>meshtiles/userfollows/'+userid);                      
        });          
     });
 </script>
@@ -40,16 +40,16 @@ $(window).scroll(function()
 {            
     if($(window).scrollTop() == $(document).height() - $(window).height())
     {
-        lazyload();
+        userlazyload();
     }
 });
 </script>
 <div class="lazyload">
     <script type="text/javascript">
-        function lazyload(){
+        function userlazyload(){
             $('#loading').show();
             $.ajax({
-            url: "<?php echo $this->webroot; ?>instagrams/loaduserrecent/<?php echo $user['user']['user_id']  ?>",
+            url: "<?php echo $this->webroot; ?>meshtiles/loaduserrecent/<?php echo $user['user']['user_id']  ?>",
             success: function(html)
             {
                 if(html)
@@ -67,7 +67,7 @@ $(window).scroll(function()
             });
         }
         $(document).ready(function(){
-            lazyload();
+            userlazyload();
         });
     </script>
 </div>

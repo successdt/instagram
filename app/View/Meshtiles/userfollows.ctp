@@ -3,7 +3,7 @@
     function followload(){
         $('#loading').show();
         $.ajax({
-        url: "<?php echo $this->webroot; ?>instagrams/loaduserfollows/<?php echo $id ?>",
+        url: "<?php echo $this->webroot; ?>meshtiles/loaduserfollows/<?php echo $id ?>",
         success: function(html)
         {
             if(html)
@@ -33,6 +33,7 @@
     });
 </script>
 </div>
+
 <div id="follows">
 
 </div>

@@ -5,16 +5,6 @@
  */
 ?>
 <?php if(isset($response)){ ?>
-<!-- autolink script -->
-<script type="text/javascript">
-$(document).ready(function() {
-    $('.display-block').html(function(index, old) {
-        var root = "<?php echo $this->webroot ?>";
-        var match = /#([a-zA-Z1-9]{1,})/gi;
-        return old.replace(match, '<a href="' + root + 'meshtiles/index/$1" class="tag_replace">#$1</a>');
-    });
-});
-</script>
 <!-- lightbox -->
 <script type="text/javascript">
     $(document).ready(function(){

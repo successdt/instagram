@@ -161,7 +161,7 @@ array(
     </div><!-- /created-time -->
      </div><!-- /p_text_text -->
 </div><!--/p_text  -->
-<div class="p_close"></div><!-- /p_close -->
+<div class="p_close"> <i class="icon-remove icon-black"></i></div><!-- /p_close -->
 <div class="p_like">
     <?php
         echo $this->Html->image('icons/facebook.png', array(
@@ -196,14 +196,13 @@ array(
             'action' => 'viewprofile',
             $like['id'])); ?>
         <?php endforeach */ ?>
-        <br />
-        <!-- tag -->
-        <i class="icon-tag icon-black"></i>
-        <?php foreach($tags as $tag){
-            if($tag)
-                echo '#'.$tag.' ';
-        } ?>
     </div><!-- /p_like_inner -->
+    <!-- tag -->
+    <i class="icon-tag icon-black"></i>
+    <?php foreach($tags as $tag){
+        if($tag)
+            echo '#'.$tag.' ';
+    } ?>
 </div><!-- /.p_like -->
 <div class="p_comment">
     

@@ -31,7 +31,7 @@ class MeshtilesController extends AppController
         $session = $this->Session->read('MeshtilesAccessToken');
         $this->set('session', $session);
         if($session){
-            $this->Session->write('next_page', 1);
+            $this->Session->write($tags.'next_page', 1);
             $this->Session->write($tags.'end',false);
         }else{
             $meshtiles->openAuthorizationUrl();
@@ -53,12 +53,12 @@ class MeshtilesController extends AppController
         if ($session&&(!$end)) {
             $meshtiles = new Meshtiles($config->cfg);
             $meshtiles->setAccessToken($session);
-            $next_page = $this->Session->read('next_page');
+            $next_page = $this->Session->read($tags.'next_page');
             $popular = $meshtiles->getRecentTags($tags, $next_page);
             $response = json_decode($popular, true);
             //debug($response);
             if(count($response['photo']==32))
-                $this->Session->write('next_page', $next_page+1);
+                $this->Session->write($tags.'next_page', $next_page+1);
             else
                 $this->Session->write($tags.'end',true);
             $this->set('response', $response);
@@ -166,11 +166,11 @@ class MeshtilesController extends AppController
             $response=$meshtiles->getUserViewDetail($id);
             $user=json_decode($response,true);
             $this->set('user',$user);
-            debug($user);
+            //debug($user);
             //Bắt load từ đầu
             $this->Session->write($id.'_end',false);
             $this->Session->write($id.'next_cursor','');
-            $this->Session->write($id.'_next_max_tag_id', '');
+            $this->Session->write($id.'next_page', 1);
         }
         else $this->redirect(array('controller'=>'meshtiless','action'=>'index'));
 
@@ -192,21 +192,21 @@ class MeshtilesController extends AppController
             }else{
                 $meshtiles = new Meshtiles($config->cfg);
                 $meshtiles->setAccessToken($session);
-                $max_id = $this->Session->read($id.'_next_max_tag_id');
-                $response = $meshtiles->getUserRecent($id,$max_id);
+                $page_index = $this->Session->read($id.'next_page');
+                $response = $meshtiles->getUserRecent($id,$page_index);
                 $media = json_decode($response, true);
                 //debug($media);
-                if(isset($media['pagination']['next_max_id'])){
-                    $this->Session->write($id.'_next_max_tag_id', $media['pagination']['next_max_id']);                       
+                if(count($media['photo'])==32){
+                    $this->Session->write($id.'next_page',$page_index+1 );                       
                 }
                 else{
                     $this->Session->write($id.'_end',true);
                 }
-                $this->set('media', $media);
-                $this->render('popular');                    
+                $this->set('response', $media);
+                $this->render('lazyload');                    
             }
         }            
-    }//chưa hoàn thành
+    }
     function popular(){
         $config = new meshconfig();
         $meshtiles=new Meshtiles($config->cfg);
@@ -247,30 +247,32 @@ class MeshtilesController extends AppController
     function userfollows($id=null){
 
         $config = new meshconfig();
+        $this->layout='';
         $session = $this->Session->read('MeshtilesAccessToken');
         if($session&&$id){
             $this->set('id',$id);
-            $this->Session->write($id.'next_cursor','');
+            $this->Session->write($id.'next_page',1);
         }
-        $this->layout='';           
+        
+                   
     }
     function loaduserfollows($id=null){
 
         $config = new meshconfig();
         $session = $this->Session->read('MeshtilesAccessToken');
-        $next_cursor=$this->Session->read($id.'next_cursor');
-        if($session&&$id&&($next_cursor!=1)){
+        $next_page=$this->Session->read($id.'next_page');
+        if($session&&$id&&$next_page){
             $meshtiles=new Meshtiles($config->cfg);
             $meshtiles->setAccessToken($session);
-            $followed=$meshtiles->getUserFollows($id,$next_cursor);
+            $followed=$meshtiles->getUserFollows($id,$next_page);
             $data=json_decode($followed,true);
             $this->set('data',$data);
             //debug($data);
-            if(isset($data['pagination']['next_cursor'])){
-                $this->Session->write($id.'next_cursor',$data['pagination']['next_cursor']);
+            if(count($data['user'])==100){
+                $this->Session->write($id.'next_page',$next_page+1);
                 //debug($data);                
             }else{
-                $this->Session->write($id.'next_cursor','1');
+                $this->Session->write($id.'next_page',0);
             }
 
         }
@@ -278,30 +280,30 @@ class MeshtilesController extends AppController
     }
     function userfollowedby($id=null){
         $config = new meshconfig();
+        //$this->layout='';
         $session = $this->Session->read('MeshtilesAccessToken');
         if($session&&$id){
             $this->set('id',$id);
-            $this->Session->write($id.'next_cursor_by','');
-            $this->layout='';
+            $this->Session->write($id.'next_page_by',1);
         }
-        else $this->redirect(array('controller'=>'meshtiless','action'=>'index'));
                    
     }
     function loaduserfollowedby($id=null){
         $config = new meshconfig();
         $session = $this->Session->read('MeshtilesAccessToken');
-        $next_cursor=$this->Session->read($id.'next_cursor_by');
-        if($session&&$id&&($next_cursor!=1)){
+        $next_page=$this->Session->read($id.'next_page_by');
+        if($session&&$id&&$next_page){
             $meshtiles=new Meshtiles($config->cfg);
             $meshtiles->setAccessToken($session);
-            $followed=$meshtiles->getUserFollowedBy($id,$next_cursor);
+            $followed=$meshtiles->getUserFollowedBy($id,$next_page);
             $data=json_decode($followed,true);
             $this->set('data',$data);
-            if(isset($data['pagination']['next_cursor'])){
-                $this->Session->write($id.'next_cursor_by',$data['pagination']['next_cursor']);
+            //debug($data);
+            if(count($data['user'])==100){
+                $this->Session->write($id.'next_page_by',$next_page+1);
                 //debug($data);                
             }else{
-                $this->Session->write($id.'next_cursor_by','1');
+                $this->Session->write($id.'next_page_by',0);
             }
 
         }

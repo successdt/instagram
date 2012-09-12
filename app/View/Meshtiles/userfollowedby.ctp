@@ -3,7 +3,7 @@
     function followload(){
         $('#loading').show();
         $.ajax({
-        url: "<?php echo $this->webroot; ?>instagrams/loaduserfollowedby/<?php echo $id ?>",
+        url: "<?php echo $this->webroot; ?>meshtiles/loaduserfollowedby/<?php echo $id ?>",
         success: function(html)
         {
             if(html)
