@@ -153,13 +153,14 @@ array(
             echo urldecode($media['photo']['caption']);
         ?>
 
-    <div class="created-time">
-        <i class="icon-time icon-black"></i>
-        <abbr class="timeago" title="<?php echo date('Y-m-d H:i:s', strtotime('- ' . $media['photo']['time_post'] . ' seconds' ))?>">
-            <?php echo date('Y-m-d H:i:s', strtotime('- ' . $media['photo']['time_post'] . ' seconds' ))?>
-        </abbr>
-    </div><!-- /created-time -->
-     </div><!-- /p_text_text -->
+        <div class="created-time">
+            <i class="icon-time icon-black"></i>
+            <abbr class="timeago" title="<?php echo date('Y-m-d H:i:s', strtotime('- ' . $media['photo']['time_post'] . ' seconds' ))?>">
+                <?php echo date('Y-m-d H:i:s', strtotime('- ' . $media['photo']['time_post'] . ' seconds' ))?>
+            </abbr>
+        </div><!-- /created-time -->
+        
+    </div><!-- /p_text_text -->
 </div><!--/p_text  -->
 <div class="p_close"> <i class="icon-remove icon-black"></i></div><!-- /p_close -->
 <div class="p_like">
@@ -188,13 +189,12 @@ array(
     <div class="p_like_inner">
         <?php echo $media['photo']['number_click']?>
         <?php echo $this->Html->image('icons/likes.png', array('alt' => 'likes')) ?>
-        <?php /* foreach ($media['data']['likes']['data'] as $like): ?>
-       
-            <?php
-        echo $this->Html->link('@'.$like['username'], array(
-            'controller' => 'meshtiles',
-            'action' => 'viewprofile',
-            $like['id'])); ?>
+        <?php /* foreach ($media['data']['likes']['data'] as $like): ?
+        <?php
+            echo $this->Html->link('@'.$like['username'], array(
+                'controller' => 'meshtiles',
+                'action' => 'viewprofile',
+                $like['id'])); ?>
         <?php endforeach */ ?>
     </div><!-- /p_like_inner -->
     <!-- tag -->
@@ -203,6 +203,10 @@ array(
         if($tag)
             echo '#'.$tag.' ';
     } ?>
+    <p>
+        <a href="<?php echo $this->webroot ?>meshtiles/viewmap/<?php echo $media['photo']['photo_id'] ?>"><i class="icon-map-marker icon-black"></i>View map</a>
+    </p>
+    
 </div><!-- /.p_like -->
 <div class="p_comment">
     
@@ -246,7 +250,8 @@ array(
         'id' => 'new-post',
         'type' => 'textarea',
         'cols'=>'25',
-        'rows' => '3')) ?>    
+        'rows' => '3',
+        'placeholder'=>'Write a comment...')) ?>    
     </div>
     <div class="inline">
         <button class="white send-button">Send</button>

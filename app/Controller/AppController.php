@@ -32,12 +32,13 @@ App::uses('Controller', 'Controller');
  * @link http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+    var $components = array('Cookie');
     function beforeFilter(){
         App::import('vendor','Instagram');
         App::import('vendor','config');
         App::import('vendor','Meshtiles');
         App::import('vendor','Meshconfig');
-        $userinfo=$this->Session->read('UserInfo');
+        $userinfo=$this->Cookie->read('UserInfo');
         $this->set('userinfo',$userinfo);
     }
 }

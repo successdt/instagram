@@ -74,4 +74,20 @@ function facebook(){
         });        
     }
 </script>
-
+<!-- load sidebar -->
+<script type="text/javascript">
+function loaduser(){
+    var root=<?php echo $this->webroot; ?>;
+    $.ajax({
+        url: root+"meshtiles/loaduser",
+        success:function(html)
+        {
+            $('.sidebar').html(html);
+        }
+    });
+}
+$(document).ready(function(){
+    loaduser();
+    setInterval(function(){loaduser()},60000);
+});
+</script>

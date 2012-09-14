@@ -13,7 +13,7 @@ echo $this->Html->script('timeago');
 echo $this->Html->script('bootstrap.min');
 echo $this->Html->css('bootstrap.min', 'stylesheet');
 echo $this->Html->css('bootstrap-responsive.min', 'stylesheet');
-echo $this->Html->css('mybootstrap', 'stylesheet');
+echo $this->Html->css('mybootstrap', 'stylesheet',array('media'=>'screen'));
 ?>
 </head>
 
@@ -99,11 +99,17 @@ echo $this->Html->css('mybootstrap', 'stylesheet');
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><?php echo $this->Html->link('Account Settings',array('controller'=>'meshtile','action'=>'#')) ?></li>
-                        <li><a href="<?php echo $this->webroot?>meshtiles/logout">Log Out</a></li>
-                        <li><?php echo $this->Html->link('Help',array('controller'=>'meshtiles','action'=>'help')) ?></li>
-                        <li><?php echo $this->Html->link('About us',array('controller'=>'meshtiles','action'=>'about')) ?></li>
-
+                        <?php if(isset($userinfo['user_name'])){ ?>
+                            <li><?php echo $this->Html->link('Account Settings',array('controller'=>'meshtile','action'=>'#')) ?></li>
+                            <li class="divider"></li>
+                            <li><?php echo $this->Html->link('Help',array('controller'=>'meshtiles','action'=>'help')) ?></li>
+                            <li><?php echo $this->Html->link('About us',array('controller'=>'meshtiles','action'=>'about')) ?></li>
+                            <li class="divider"></li>
+                            <li><a href="<?php echo $this->webroot?>meshtiles/logout">Log Out</a></li>                            
+                        <?php }else {?>
+                            <li><?php echo $this->Html->link('Help',array('controller'=>'meshtiles','action'=>'help')) ?></li>
+                            <li><?php echo $this->Html->link('About us',array('controller'=>'meshtiles','action'=>'about')) ?></li>
+                        <?php }?>
                     </ul>
                 </li>
                 <li>
@@ -126,18 +132,19 @@ echo $this->Html->css('mybootstrap', 'stylesheet');
         });
     </script>
 </div><!--  /content-->
-<div class="sidebar">   
+<div class="sidebar visible-desktop"> <!--  -->  
 </div><!-- sidebar -->
 
-<div id="loading"><div id="loading-inner"> <?php echo $this->Html->image('loading.gif',
-            array(
+<div id="loading">
+    <div id="loading-inner"> 
+        <?php echo $this->Html->image('loading.gif',array(
             'alt' => 'loading',
             'width' => '100',
-            'height' => '100')) ?></div>
+            'height' => '100')) ?>
+    </div>
 </div>
 <div id="lightbox"></div><!-- /lightbox -->
 <div class="preview_wrapper">
-    
     <div class="preview"> </div><!-- /.preview -->
 </div><!-- /.preview_wrapper -->
 </body>

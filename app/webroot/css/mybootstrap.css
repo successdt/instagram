@@ -1,6 +1,6 @@
 body {
 
-	font-family::"Times New Roman", Times, serif;
+	font-family:"Times New Roman", Times, serif;
 	line-height: 1.3em;
 	margin: 0px 0px 0px 0px;
 	font-size: 14px;
@@ -21,26 +21,36 @@ body {
     left: 0px;
 	padding:40px 0px 0px 0px ;
     height: auto;
+    
+}
+@media (min-width: 980px) {
+    #content{
+        margin-right: 200px;
+    }
 }
 .sidebar{
     position: fixed;
     right: 0px;
-    top: 30px;
+    top: 0px;
+    padding: 60px 0px 0px 0px;
     width: 200px;
     height: 100%;
     background-color: #EEE;
+    
+    
 }
+
 #lightbox{
-    width: 100%;
-    height: 100%;
-    z-index: 105;
-    background-color: #000;
-    opacity: 0.8;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    display: none;
-}
+        width: 100%;
+        height: 100%;
+        z-index: 105;
+        background-color: #000;
+        opacity: 0.8;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        display: none;
+    } 
 
 .preview_wrapper{
     width:100%;
@@ -592,4 +602,32 @@ img.instagramlike{
 }
 abbr.timeago{
     color: #888;
+}
+.user-stat{
+    margin:5px 5px 5px 5px;
+    float: left;
+    background-color: #5686AC;
+    border-radius: 4px;
+    box-shadow: 0px 1px 3px black;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    padding-top: 4px;
+    text-align: center;
+    text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.506);
+    
+}
+.stat1{
+    width: 56px;
+}
+.stat2{
+    width: 90px;
+}
+.stat3{
+    width: 190px;
+}
+.top-photo{
+    float: left;
+    padding:3px 0px 3px 3px;
 }
