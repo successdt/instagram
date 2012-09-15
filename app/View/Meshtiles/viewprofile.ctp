@@ -36,10 +36,12 @@ if (!$session) {
 
 <!-- lazyload script -->       
 <script type="text/javascript">
+var load=true;
 $(window).scroll(function()
 {            
-    if($(window).scrollTop() == $(document).height() - $(window).height())
+    if(($(window).scrollTop()+$(window).height()>($(document).height() -400 ))&&load)
     {
+        load=false;
         userlazyload();
     }
 });
@@ -56,6 +58,7 @@ $(window).scroll(function()
                 {
                     $("#content").append(html);
                     $('#loading').hide();
+                    load=true;
                     facebook();
                     twitter();
                 }else

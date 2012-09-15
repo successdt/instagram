@@ -35,11 +35,13 @@ if (!$session) {
 <div class="lazyload">
 <!-- lazyload script -->       
     <script type="text/javascript">
+    var load;
+    load=true;
     $(window).scroll(function()
-    {            
-        if($(window).scrollTop() == $(document).height() - $(window).height())
+    {     
+        if(($(window).scrollTop()+$(window).height()>($(document).height() -400 ))&&load)
         {
-    
+            load=false;
             lazyload();
         }
     });
@@ -54,12 +56,13 @@ if (!$session) {
         success: function(html)
         {
             if(html)
-            {      
+            {                    
                 $("#content").append(html);
                 $('#loading').hide();
                 prettyTime();
                 facebook();
                 twitter();
+                load=true;
             }else
             {
                 $('#content').html('<center>No more posts to show.</center>');
