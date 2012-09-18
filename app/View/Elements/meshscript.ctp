@@ -32,9 +32,8 @@ $(function(){
     prettyTime();
     setInterval(function(){prettyTime()},10000);
 </script>
-
+<?php /* ?>
 <!-- location -->
-<script language="JavaScript" src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         function getLocation()
@@ -54,6 +53,7 @@ $(function(){
         });        
     });
 </script>
+<?php */?>
 <!-- facebook -->
 <script>
 function facebook(){

@@ -113,11 +113,13 @@ echo $this->Html->css('mybootstrap', 'stylesheet',array('media'=>'screen'));
                     </ul>
                 </li>
                 <li>
-                    <?php if (isset($userinfo['data']['profile_picture']))
+                    <?php 
+                        if (isset($userinfo['data']['profile_picture']))
                             echo $this->Html->image($userinfo['data']['profile_picture'], array(
                                 'width' =>'30',
                                 'height' => '30',
-                                'class'=>'profile-picture')) ?>
+                                'class'=>'profile-picture')) 
+                    ?>
                 </li>
             </ul>
         </div><!-- /container -->

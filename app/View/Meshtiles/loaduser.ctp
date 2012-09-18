@@ -14,7 +14,7 @@
 </script>
 <div class="user-stat stat2">
     <span><i class="icon-user icon-white"></i><?php echo $user['user_name'] ?></span>
-    <div class="stat-desc"><?php echo urldecode($user['first_name'].$user['last_name']) ?>Phạm Văn Hiếu</div>
+    <div class="stat-desc"><?php echo urldecode($user['first_name'].$user['last_name']) ?></div>
 </div><!-- /user-stat --> 
 <?php echo $this->html->image($user['url_image'],array('class'=>'stat2')) ?>
 <div class="user-stat stat1"  data-user-id="<?php echo $user['user_id'] ?>">

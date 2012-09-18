@@ -140,31 +140,31 @@ foreach ($response['photo'] as $data): ?>
         </div><!-- /.metadata -->
         <div class="comment">
             <?php /*
-        $i = 0; 
-        foreach ($data['comments']['data'] as $comment): ?>
-                
-                <?php if ($i == 3)
-            break; ?>
-                <div class="comment-avatar">
-                    <?php
-        echo $this->Html->image($comment['from']['profile_picture'], array(
-            'width' => '30',
-            'height' => '30',
-            'url' => array(
-                'controller' => 'meshtiles',
-                'action' => 'viewprofile',
-                $comment['from']['id'])));
-                ?>
-                </div><!-- /comment-avatar -->
-                <div class="comment-inner">
-                <?php
-                    echo $this->Html->link($comment['from']['username'] . " ", array(
+                $i = 0; 
+                foreach ($data['comments']['data'] as $comment): ?>
+                        
+                        <?php if ($i == 3)
+                    break; ?>
+                        <div class="comment-avatar">
+                            <?php
+                echo $this->Html->image($comment['from']['profile_picture'], array(
+                    'width' => '30',
+                    'height' => '30',
+                    'url' => array(
                         'controller' => 'meshtiles',
                         'action' => 'viewprofile',
-                        $comment['from']['id']));
-                    echo $comment['text'];
-                    $i++; 
-                    ?>
+                        $comment['from']['id'])));
+                        ?>
+                        </div><!-- /comment-avatar -->
+                        <div class="comment-inner">
+                        <?php
+                            echo $this->Html->link($comment['from']['username'] . " ", array(
+                                'controller' => 'meshtiles',
+                                'action' => 'viewprofile',
+                                $comment['from']['id']));
+                            echo $comment['text'];
+                            $i++; 
+                            ?>
                     <div class="created-time">
                         <abbr class="timeago" title="<?php echo date("Y-m-d H:i:s", $comment['created_time'])?>"><?php echo date("Y-m-d H:i:s", $comment['created_time'])?></abbr>
                     </div><!-- /created-time -->

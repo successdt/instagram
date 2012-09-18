@@ -37,7 +37,7 @@ class MeshtilesController extends AppController
         }
         
     }
-
+    //Load list photo
     function lazyload($tags = null,$next_page = null)
     {
         $config = new meshconfig();
@@ -67,7 +67,7 @@ class MeshtilesController extends AppController
         else
             $this->render('loaduserrecent');
     }
-
+    
     function photo($id = null)
     {
         $config = new meshconfig();
@@ -381,6 +381,7 @@ class MeshtilesController extends AppController
         $this->redirect(array('controller'=>'meshtiles','action'=>'index'));       
         
     }
+    //View a photo
     function media($id = null){
         $config = new meshconfig();
         $cookie = $this->Cookie->read('MeshtilesAccessToken');
@@ -411,6 +412,7 @@ class MeshtilesController extends AppController
         else 
             $this->redirect(array('controller'=>'meshtiles','action'=>'index'));
     }
+    //Xem vị trí 1 ảnh trên bản đồ
     function viewmap($id=null){
         $config = new meshconfig();
         $cookie = $this->Cookie->read('MeshtilesAccessToken');
@@ -424,6 +426,25 @@ class MeshtilesController extends AppController
         }
         else
             $this->redirect(array('controller'=>'meshtiles','action'=>'index'));
+    }
+    //xem list ảnh trên bản đồ
+    function map($tags=null){
+        $config = new meshconfig();
+        if (!($tags)) {
+            $tags = 'food';
+        }   
+        $cookie = $this->Cookie->read('MeshtilesAccessToken');
+        $this->set('session', $cookie);
+        $meshtiles = new Meshtiles($config->cfg);
+        $meshtiles->setAccessToken($cookie);
+        $next_page =1;
+        $response = $meshtiles->getRecentTags($tags, $next_page);
+        $media = json_decode($response, true);
+        //debug($media);
+        if(!$media['is_success'])
+            $meshtiles->openAuthorizationUrl();
+        else
+            $this->set('media',$media);
     }
 }
 
