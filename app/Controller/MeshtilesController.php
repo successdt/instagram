@@ -123,6 +123,7 @@ class MeshtilesController extends AppController
         $this->layout = '';        
     }
     function load_comment($id){
+        $this->layout = '';
         $config = new meshconfig();
         $cookie = $this->Cookie->read('MeshtilesAccessToken');
         if ($cookie) {
@@ -133,7 +134,7 @@ class MeshtilesController extends AppController
             $this->set('comments',$comment);
             $this->render('new_comment');
         }
-        $this->layout = '';         
+                 
     }
     function like($like=null,$id=null){
         $config = new meshconfig();
@@ -445,6 +446,41 @@ class MeshtilesController extends AppController
             $meshtiles->openAuthorizationUrl();
         else
             $this->set('media',$media);
+    }
+    function searchtag(){
+        $this->layout='';
+        $keyword=$_GET['tag'];
+        $mode=$_GET['mode'];        
+        $config = new meshconfig();
+        $cookie = $this->Cookie->read('MeshtilesAccessToken');
+        $this->set('session', $cookie);
+        if ($cookie) {
+            $meshtiles = new Meshtiles($config->cfg);
+            $meshtiles->setAccessToken($cookie);
+            if($mode=='tag'){
+                $response = $meshtiles->searchTags($keyword);
+                $tags = json_decode($response,true);
+                $result = array();
+                foreach($tags['tag'] as $tag){
+                    array_push($result,array('key'=>$tag['tag_name'],'value'=>'#'.$tag['tag_name']));
+                }
+                $encode_result=json_encode($result);
+                $this->set('encoded_result',$encode_result);
+            }
+            if($mode=='user'){
+                $response2 = $meshtiles->searchUser($keyword);
+                $users = json_decode($response2,true);
+                $result = array();
+                foreach($users['user'] as $user){
+                    array_push($result,array('key'=>$user['user_name'],'value'=>'@'.$user['user_name']));
+                }
+                $encode_result=json_encode($result);
+                $this->set('encoded_result',$encode_result);
+            
+                }                            
+            }
+        else 
+            $this->redirect(array('controller'=>'meshtiles','action'=>'index'));
     }
 }
 

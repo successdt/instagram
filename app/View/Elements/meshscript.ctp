@@ -91,3 +91,35 @@ $(document).ready(function(){
     setInterval(function(){loaduser()},60000);
 });
 </script>
+<!-- search -->
+<script type="text/javascript">
+    var root=<?php echo $this->webroot; ?>;
+    $(document).ready(function(){
+        $("#select3").fcbkcomplete({
+            json_url: root+"meshtiles/searchtag?mode="+$("input:[name='searchby']:checked").val(),
+            addontab: true,                   
+            maxitems: 10,
+            input_min_size: 0,
+            height: 10,
+            cache: true,
+            newel: true,
+            select_all_text: "select",
+        });
+        
+        $('input:[name="searchby"]').click(function(){
+            $("#select3").trigger("destroy").fcbkcomplete({
+                json_url: root+"meshtiles/searchtag?mode="+$("input:[name='searchby']:checked").val(),
+                addontab: true,                   
+                maxitems: 10,
+                input_min_size: 0,
+                height: 10,
+                cache: true,
+                newel: true,
+                select_all_text: "select",
+            });
+        })
+        
+        
+        
+    });
+</script>
