@@ -7,8 +7,8 @@
 <?php
 echo $this->Html->charset('UTF-8');
 echo $this->Html->script('jquery-1.7.1.min');
-echo $this->Html->script('jquery.fcbkcomplete.min');
-//echo $this->Html->script('jquery.scrollExtend');
+//echo $this->Html->script('jquery.fcbkcomplete.min');
+echo $this->Html->script('http://www.google.com/jsapi');
 echo $this->Html->script('masonry.min.js');
 echo $this->Html->script('timeago');
 echo $this->Html->script('bootstrap.min');

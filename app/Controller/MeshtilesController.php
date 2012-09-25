@@ -318,24 +318,19 @@ class MeshtilesController extends AppController
         $keyword=$_POST['search'];
         $this->set('option',$option);
         $this->set('session', $cookie);
-//        $userinfo=$this->Cookie->read('UserInfo');
-//        $this->set('userinfo',$userinfo);
-        if($option&&$keyword){
+        //debug($_REQUEST);
+        if($cookie){
             $meshtiles=new Meshtiles($config->cfg);
             $meshtiles->setAccessToken($cookie);
-            if($option=='tag'){
-                $response=$meshtiles->searchTags($keyword);
-                $result=json_decode($response,true);
-                $this->set('media',$result);
-                //debug($result);
+            if($_REQUEST['searchby']=='user'){
+                $responser = $meshtiles->searchUser($_REQUEST['keyword'][0]);
+                $user=json_decode($responser,true);
+                $this->set('user',$user);
+                //debug($user);
             }
-            if($option=='username'){
-                $response=$meshtiles->searchUser($keyword);
-                $result=json_decode($response,true);
-                $this->set('user',$result);
-                //debug($result);
-            }
-            
+            if($_REQUEST['searchby']=='tag'){
+                $this->redirect(array('controller'=>'meshtiles','action'=>'index',$_REQUEST['keyword'][0]));
+            } 
         }
         else $this->redirect(array('controller'=>'meshtiles','action'=>'index'));
     }
@@ -479,6 +474,39 @@ class MeshtilesController extends AppController
             
                 }                            
             }
+        else 
+            $this->redirect(array('controller'=>'meshtiles','action'=>'index'));
+    }
+    function searchsuggest($keyword=null,$mode=null){
+        $this->layout='';       
+        $config = new meshconfig();
+        $cookie = $this->Cookie->read('MeshtilesAccessToken');
+        $this->set('session', $cookie);
+        if ($cookie) {
+            $meshtiles = new Meshtiles($config->cfg);
+            $meshtiles->setAccessToken($cookie);
+            if($mode=='tag'&&$keyword){
+                $response = $meshtiles->searchTags($keyword);
+                $tags = json_decode($response,true);
+                $result = array();
+                foreach($tags['tag'] as $tag){
+                    array_push($result,array($tag['tag_name'],$tag['number_post']));
+                }
+                $encode_result=json_encode($result);
+                $this->set('encoded_result',$encode_result);
+                //debug ($tags);
+            }
+            if($mode=='user'&&$keyword){
+                $response2 = $meshtiles->searchUser($keyword);
+                $users = json_decode($response2,true);
+                $result = array();
+                foreach($users['user'] as $user){
+                    array_push($result,array($user['user_id'],$user['user_name'],$user['first_name'].$user['last_name'],$user['url_image']));
+                }
+                $encode_result=json_encode($result);
+                $this->set('encoded_result',$encode_result);                
+            }                            
+        }
         else 
             $this->redirect(array('controller'=>'meshtiles','action'=>'index'));
     }
