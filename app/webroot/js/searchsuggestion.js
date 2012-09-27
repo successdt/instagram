@@ -1,4 +1,5 @@
 ﻿var Option=new Object();
+Option.lang=new Object;
 /*
 require src='http://www.google.com/jsapi'
 example:
@@ -26,6 +27,11 @@ Option.modeName='';
 Option.suggestDiv='';
 Option.delay=0;
 Option.maxItem=10;
+Option.lang.user='User';
+Option.lang.following='Following';
+Option.lang.tags='Tags';
+Option.lang.favouritetags='Favourite Tags';
+Option.lang.noresult='No result';
 Option.start=function(){
     var ajax_lock=false;
     var request;
@@ -89,7 +95,23 @@ Option.start=function(){
                 $("#"+Option.suggestDiv).fadeIn();
                 if(mode=='tag'){
                     var count=0;
-                    item.push('<span class="tags">Tags</span>');
+                    item.push('<span class="tags">'+Option.lang.favouritetags+'</span>');
+                    $.each(tag_loaded,function(key,value){
+                        var reg = new RegExp(inputString,"i");
+                        var isFound=value[0].search(reg);
+                        if(isFound!=-1){
+                            count ++;
+                            item.push('<a href="'+Option.viewTagUrl+value[0]+'">');
+                            item.push('<span class="searchheading">'+value[0]+'</span>');
+                            item.push('<span>'+value[1]+' Photos</span>');
+                            item.push('</a>');
+                            if(count>Option.maxItem)
+                                return false;  
+                        }
+                    });
+                    if(item.push.length<2)
+                        item.push('<a href=""><span class="searchheading">'+Option.lang.noresult+'</span></a>');                
+                    item.push('<span class="tags">'+Option.lang.tags+'</span>');
                     $.each(data,function(key,value){
                         count ++;
                         item.push('<a href="'+Option.viewTagUrl+value[0]+'">');
@@ -101,11 +123,29 @@ Option.start=function(){
                     });
                 }else{
                     var count=0;
-                    item.push('<span class="tags">User</span>');
+                    item.push('<span class="tags">'+Option.lang.following+'</span>');
+                    $.each(user_loaded,function(key,value){
+                        var reg = new RegExp(inputString,"i");
+                        var isFound=value[1].search(reg);
+                        if(isFound!=-1){
+                            count ++;
+                            item.push('<a href="'+Option.viewUserByIdUrl+value[0]+'">');
+                            item.push('<img alt="" width="30" height="30" src="'+value[3]+'"/>');
+                            item.push('<span class="searchheading">'+value[1]+'</span>');
+                            item.push('<span>'+value[2]+'</span>');
+                            item.push('</a>');
+                            if(count>Option.maxItem/2)
+                                return false;  
+                        }
+                    });
+                    if(item.push.length<2)
+                        item.push('<a href=""><span class="searchheading">'+Option.lang.noresult+'</span></a>'); 
+                    item.push('<span class="tags">'+Option.lang.user+'</span>');
                     $.each(data,function(key,value){
                         count ++;
                         item.push('<a href="'+Option.viewUserByIdUrl+value[0]+'">');
-                        item.push('<img alt="" width="30" height="30" src="'+value[3]+'"/>');
+                        if(value[3])
+                            item.push('<img alt="" width="30" height="30" src="'+value[3]+'"/>');
                         item.push('<span class="searchheading">'+value[1]+'</span>');
                         item.push('<span>'+value[2]+'</span>');
                         item.push('</a>');
@@ -123,7 +163,7 @@ Option.start=function(){
             if(mode=='user'){
                     var count=1;
                     var item=[];
-                    item.push('<span class="tags">User</span>');
+                    item.push('<span class="tags">Following</span>');
                     $.each(user_loaded,function(key,value){
                         var reg = new RegExp(inputString,"i");
                         var isFound=value[1].search(reg);
@@ -143,7 +183,7 @@ Option.start=function(){
             else{
                     var count=1;
                     var item=[];
-                    item.push('<span class="tags">Tags</span>');
+                    item.push('<span class="tags">Favourite Tags</span>');
                     $.each(tag_loaded,function(key,value){
                         var reg = new RegExp(inputString,"i");
                         var isFound=value[0].search(reg);
