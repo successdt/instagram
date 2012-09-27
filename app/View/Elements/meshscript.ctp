@@ -95,63 +95,19 @@ $(document).ready(function(){
 
 <!-- search -->
 <script type="text/javascript">
-    google.setOnLoadCallback(function()
-    {
-    	// Safely inject CSS3 and give the search results a shadow
-    	var cssObj = { 'box-shadow' : '#888 5px 10px 10px', // Added when CSS3 is standard
-    		'-webkit-box-shadow' : '#888 5px 10px 10px', // Safari
-    		'-moz-box-shadow' : '#888 5px 10px 10px'}; // Firefox 3.5+
-    	$("#suggestions").css(cssObj);
-    	
-    	// Fade out the suggestions box when not active
-    	 $("input").blur(function(){
-    	 	$('#suggestions').fadeOut();
-    	 });
-    });
     var root=<?php echo $this->webroot; ?>;
-    $(document).ready(function(){
-    $('#inputString').keyup(function(){
-        var inputString=$(this).val();
-        var mode=$('input:[name="searchby"]:checked').val();
-        console.log(mode);        
-   	    if(inputString.length == 0) {
-	      $('#suggestions').fadeOut(); // Hide the suggestions box
-       } else {
-            $.ajax({
-              url: root+"meshtiles/searchsuggest/"+inputString+"/"+mode,
-              dataType: 'json',
-              success: function(data){
-                var item = [];
-                var count=0;
-                $('#suggestions').fadeIn();
-                if(mode=='tag'){
-                    $.each(data,function(key,value){
-                        count ++;
-                        item.push('<a href="<?php echo $this->webroot?>meshtiles/index/'+value[0]+'">');
-                        item.push('<span class="searchheading">'+value[0]+'</span>');
-                        item.push('<span>'+value[1]+' Posts</span>');
-                        item.push('</a>');
-                        if(count>10)
-                            return false;
-                    });
-                }else{
-                    $.each(data,function(key,value){
-                        count ++;
-                        item.push('<a href="<?php echo $this->webroot?>meshtiles/viewprofile/'+value[0]+'">');
-                        item.push('<img alt="" width="30" height="30" src="'+value[3]+'"/>');
-                        item.push('<span class="searchheading">'+value[1]+'</span>');
-                        item.push('<span>'+value[2]+'</span>');
-                        item.push('</a>');
-                        if(count>10)
-                            return false;
-                    });
-                    
-                }
-                $('#suggestions').html('<p id="searchresults">'+item.join('')+'</p>');
-              }
-            });
-       }
-    });
-});
-    
+    Option.searchUrl=root+"meshtiles/searchsuggest/";
+    Option.typeAHeadTagUrl=root+"meshtiles/typeaheadsearch/tag";
+    Option.typeAHeadUserUrl=root+"meshtiles/typeaheadsearch/user";
+    Option.viewTagUrl=root+'meshtiles/index/';
+    Option.viewUserByIdUrl=root+'meshtiles/viewprofile/';
+    Option.min_string=3;
+    Option.inputName='inputString';
+    Option.modeName='searchby';
+    Option.suggestDiv='suggestions';
+    Option.delay=600;
+    Option.maxItem=10;
+     $(document).ready(function(){
+        Option.start();
+     });
 </script>

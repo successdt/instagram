@@ -29,7 +29,7 @@
                         'action'=>'viewprofile',
                         $user['user_id'])) ?>
                 </div><!-- block-username -->
-                <div class="block-fullname"><?php echo $user['first_name'].$user['last_name'] ?></div><!-- block-fullname -->
+                <div class="block-fullname"><?php echo urldecode($user['first_name'].$user['last_name']) ?></div><!-- block-fullname -->
             </div> <!-- /block-info -->
             <div class="block-bio">
                 <?php echo $user['about'] ?>

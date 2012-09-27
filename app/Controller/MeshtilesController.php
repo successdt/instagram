@@ -322,14 +322,14 @@ class MeshtilesController extends AppController
         if($cookie){
             $meshtiles=new Meshtiles($config->cfg);
             $meshtiles->setAccessToken($cookie);
-            if($_REQUEST['searchby']=='user'){
-                $responser = $meshtiles->searchUser($_REQUEST['keyword'][0]);
+            if($option=='user'){
+                $responser = $meshtiles->searchUser($keyword);
                 $user=json_decode($responser,true);
                 $this->set('user',$user);
                 //debug($user);
             }
-            if($_REQUEST['searchby']=='tag'){
-                $this->redirect(array('controller'=>'meshtiles','action'=>'index',$_REQUEST['keyword'][0]));
+            if($option=='tag'){
+                $this->redirect(array('controller'=>'meshtiles','action'=>'index',$keyword));
             } 
         }
         else $this->redirect(array('controller'=>'meshtiles','action'=>'index'));
@@ -442,33 +442,37 @@ class MeshtilesController extends AppController
         else
             $this->set('media',$media);
     }
-    function searchtag(){
-        $this->layout='';
-        $keyword=$_GET['tag'];
-        $mode=$_GET['mode'];        
+    function typeaheadsearch($mode=null){
+        $this->layout='';      
         $config = new meshconfig();
         $cookie = $this->Cookie->read('MeshtilesAccessToken');
+        $you=$this->Cookie->read('UserInfo');
         $this->set('session', $cookie);
         if ($cookie) {
             $meshtiles = new Meshtiles($config->cfg);
             $meshtiles->setAccessToken($cookie);
             if($mode=='tag'){
-                $response = $meshtiles->searchTags($keyword);
+                $response = $meshtiles->getFavouristTags();
                 $tags = json_decode($response,true);
                 $result = array();
                 foreach($tags['tag'] as $tag){
-                    array_push($result,array('key'=>$tag['tag_name'],'value'=>'#'.$tag['tag_name']));
+                    array_push($result,array($tag['tag_name'],$tag['number_post']));
                 }
                 $encode_result=json_encode($result);
                 $this->set('encoded_result',$encode_result);
             }
             if($mode=='user'){
-                $response2 = $meshtiles->searchUser($keyword);
-                $users = json_decode($response2,true);
                 $result = array();
+                $response=$meshtiles->getUserFollows($you['user_id'],1);
+                $response2 = $meshtiles->getUserFollowedBy($you['user_id'],1);
+                $users = json_decode($response,true);
                 foreach($users['user'] as $user){
-                    array_push($result,array('key'=>$user['user_name'],'value'=>'@'.$user['user_name']));
+                    array_push($result,array($user['user_id'],$user['user_name'],urldecode($user['first_name'].$user['last_name']),$user['url_image']));
                 }
+                $users=json_decode($response2,true);
+                foreach($users['user'] as $user){
+                    array_push($result,array($user['user_id'],$user['user_name'],urldecode($user['first_name'].$user['last_name']),$user['url_image']));
+                }                
                 $encode_result=json_encode($result);
                 $this->set('encoded_result',$encode_result);
             
@@ -489,8 +493,13 @@ class MeshtilesController extends AppController
                 $response = $meshtiles->searchTags($keyword);
                 $tags = json_decode($response,true);
                 $result = array();
-                foreach($tags['tag'] as $tag){
-                    array_push($result,array($tag['tag_name'],$tag['number_post']));
+                if($tags['tag']){
+                    foreach($tags['tag'] as $tag){
+                        array_push($result,array($tag['tag_name'],$tag['number_post']));
+                    }
+                }
+                else{
+                    array_push($result,array('No result','0'));
                 }
                 $encode_result=json_encode($result);
                 $this->set('encoded_result',$encode_result);
@@ -500,11 +509,17 @@ class MeshtilesController extends AppController
                 $response2 = $meshtiles->searchUser($keyword);
                 $users = json_decode($response2,true);
                 $result = array();
-                foreach($users['user'] as $user){
-                    array_push($result,array($user['user_id'],$user['user_name'],$user['first_name'].$user['last_name'],$user['url_image']));
+                if($users['user']){
+                    foreach($users['user'] as $user){
+                        array_push($result,array($user['user_id'],$user['user_name'],urldecode($user['first_name'].$user['last_name']),$user['url_image']));
+                    }
+                }
+                else{
+                    array_push($result,array('#','No result','',''));
                 }
                 $encode_result=json_encode($result);
-                $this->set('encoded_result',$encode_result);                
+                $this->set('encoded_result',$encode_result);   
+               
             }                            
         }
         else 

@@ -7,11 +7,11 @@
 <?php
 echo $this->Html->charset('UTF-8');
 echo $this->Html->script('jquery-1.7.1.min');
-//echo $this->Html->script('jquery.fcbkcomplete.min');
 echo $this->Html->script('http://www.google.com/jsapi');
 echo $this->Html->script('masonry.min.js');
 echo $this->Html->script('timeago');
 echo $this->Html->script('bootstrap.min');
+echo $this->Html->script('searchsuggestion');
 echo $this->Html->css('bootstrap.min', 'stylesheet');
 echo $this->Html->css('bootstrap-responsive.min', 'stylesheet');
 echo $this->Html->css('mybootstrap', 'stylesheet',array('media'=>'screen'));

@@ -53,7 +53,7 @@
                     <li>
                         <form class="navbar-search pull-right input-append" method="post" action="<?php echo $this->webroot?>meshtiles/search">
                              <div class="input-append" style="padding: 10px;">
-                                <input class="span2" style="top: 6px;" name="search" placeholder="Search" id="inputString" size="16" type="text">
+                                <input class="span2" style="top: 6px;" name="search" placeholder="Search" autocomplete="off" id="inputString" size="16" type="text">
                                 <button type="submit" class="btn">Go!</button>
                                 <div id="suggestions"></div>
                                 <label class="radio" style="margin-top: 5px;">
